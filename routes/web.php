@@ -1,11 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CariRekomendasiController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[HomeController::class,'index'])->name('home');
 
 Route::get('/cari-rekomendasi/lokasi',[CariRekomendasiController::class,'lokasiForm'])->name('cari-rekomendasi.lokasi');
 Route::post('/cari-rekomendasi/lokasi',[CariRekomendasiController::class,'lokasiStore'])->name('cari-rekomendasi.lokasi.store');
