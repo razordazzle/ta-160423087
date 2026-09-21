@@ -12,8 +12,10 @@ class EnsureGuestSession
 
     public function handle(Request $request, Closure $next)
     {
-        $user=$this->guestSession->getOrCreateGuest();
-        session(['id_user'=>$user->id_user]);
+        if(!session()->has('id_user')){
+            $user=$this->guestSession->getOrCreateGuest();
+            session(['id_user'=>$user->id_user]);
+        }
 
         return $next($request);
     }

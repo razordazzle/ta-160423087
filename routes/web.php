@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegistrasiController;
 use App\Http\Controllers\RekomendasiRuteController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
@@ -25,3 +27,8 @@ Route::post('/wishlist/tambah/{destinasi}',[WishlistController::class,'tambah'])
 Route::get('/wishlist',[WishlistController::class,'index'])->name('wishlist.index');
 Route::delete('/wishlist/{destinasi}',[WishlistController::class,'hapus'])->name('wishlist.hapus');
 Route::get('/rekomendasi-rute',[RekomendasiRuteController::class,'index'])->name('rekomendasi-rute.index');
+
+Route::get('/registrasi',[RegistrasiController::class,'form'])->name('registrasi.form');
+Route::post('/registrasi',[RegistrasiController::class,'store'])->name('registrasi.store');
+Route::get('/login',[LoginController::class,'form'])->name('login.form');
+Route::post('/login',[LoginController::class,'store'])->name('login.store');
