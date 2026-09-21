@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\RekomendasiRuteController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CariRekomendasiController;
@@ -18,3 +20,8 @@ Route::get('/cari-rekomendasi/perbandingan',[CariRekomendasiController::class,'p
 Route::post('/cari-rekomendasi/perbandingan',[CariRekomendasiController::class,'perbandinganStore'])->name('cari-rekomendasi.perbandingan.store');
 
 Route::get('/cari-rekomendasi/hasil',[CariRekomendasiController::class,'hasilShow'])->name('cari-rekomendasi.hasil');
+
+Route::post('/wishlist/tambah/{destinasi}',[WishlistController::class,'tambah'])->name('wishlist.tambah');
+Route::get('/wishlist',[WishlistController::class,'index'])->name('wishlist.index');
+Route::delete('/wishlist/{destinasi}',[WishlistController::class,'hapus'])->name('wishlist.hapus');
+Route::get('/rekomendasi-rute',[RekomendasiRuteController::class,'index'])->name('rekomendasi-rute.index');

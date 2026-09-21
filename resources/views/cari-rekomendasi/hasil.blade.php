@@ -14,7 +14,11 @@
             <strong>#{{ $index+1 }} — {{ $destinasi->nama }}</strong><br>
             Mulai Rp {{ number_format($destinasi->harga_tiket,0,',','.') }}<br>
             Rating: {{ $destinasi->rating }}<br>
-            Nilai Preferensi: {{ round($destinasi->pivot->nilai_preferensi,4) }}
+            Nilai Preferensi: {{ round($destinasi->pivot->nilai_preferensi,4) }}<br>
+            <form method="POST" action="{{ route('wishlist.tambah',$destinasi) }}" style="display:inline;">
+                @csrf
+                <button type="submit">+ Wishlist</button>
+            </form>
         </div>
     @endforeach
 </body>
