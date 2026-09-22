@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DestinasiController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrasiController;
 use App\Http\Controllers\RekomendasiRuteController;
@@ -32,3 +33,6 @@ Route::get('/registrasi',[RegistrasiController::class,'form'])->name('registrasi
 Route::post('/registrasi',[RegistrasiController::class,'store'])->name('registrasi.store');
 Route::get('/login',[LoginController::class,'form'])->name('login.form');
 Route::post('/login',[LoginController::class,'store'])->name('login.store');
+
+Route::get('/destinasi',[DestinasiController::class,'index'])->name('destinasi.index');
+Route::get('/destinasi/{destinasi}',[DestinasiController::class,'show'])->name('destinasi.show');

@@ -24,7 +24,8 @@ class DestinasiSeeder extends Seeder
                 'popularitas'=>90,
                 'deskripsi'=>'Pantai ikonik di Bali yang terkenal dengan pemandangan matahari terbenam dan ombak yang cocok untuk berselancar.',
                 'kategori'=>['Pantai'],
-                'fasilitas'=>['Toilet','Parkir','Warung Makan','Area Foto']
+                'fasilitas'=>['Toilet','Parkir','Warung Makan','Area Foto'],
+                'gambar'=>'pantai-kuta.webp'
             ],
             [
                 'nama'=>'Tanah Lot',
@@ -35,7 +36,8 @@ class DestinasiSeeder extends Seeder
                 'popularitas'=>95,
                 'deskripsi'=>'Pura suci Hindu yang berdiri di atas batu karang di tepi laut, terkenal dengan pemandangan matahari terbenam.',
                 'kategori'=>['Pura','Pantai'],
-                'fasilitas'=>['Toilet','Mushola','Parkir','Warung Makan','Area Foto']
+                'fasilitas'=>['Toilet','Mushola','Parkir','Warung Makan','Area Foto'],
+                'gambar'=>'tanah-lot.jpg'
             ],
             [
                 'nama'=>'Pura Uluwatu',
@@ -46,7 +48,8 @@ class DestinasiSeeder extends Seeder
                 'popularitas'=>93,
                 'deskripsi'=>'Pura yang berdiri megah di ujung tebing karang, terkenal dengan pertunjukan Tari Kecak saat matahari terbenam.',
                 'kategori'=>['Pura'],
-                'fasilitas'=>['Toilet','Mushola','Parkir','Area Foto']
+                'fasilitas'=>['Toilet','Mushola','Parkir','Area Foto'],
+                'gambar'=>'pura-uluwatu.png'
             ],
             [
                 'nama'=>'Tegallalang Rice Terrace',
@@ -57,7 +60,8 @@ class DestinasiSeeder extends Seeder
                 'popularitas'=>85,
                 'deskripsi'=>'Hamparan sawah terasering ikonik dengan sistem irigasi Subak tradisional yang telah diakui UNESCO.',
                 'kategori'=>['Alam'],
-                'fasilitas'=>['Toilet','Parkir','Warung Makan','Area Foto','WiFi']
+                'fasilitas'=>['Toilet','Parkir','Warung Makan','Area Foto','WiFi'],
+                'gambar'=>'tegallalang-rice-terrace.jpg'
             ],
         ];
 
