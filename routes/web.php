@@ -36,3 +36,5 @@ Route::post('/login',[LoginController::class,'store'])->name('login.store');
 
 Route::get('/destinasi',[DestinasiController::class,'index'])->name('destinasi.index');
 Route::get('/destinasi/{destinasi}',[DestinasiController::class,'show'])->name('destinasi.show');
+
+Route::post('/wishlist/toggle/{destinasi}',[WishlistController::class,'toggle'])->name('wishlist.toggle');

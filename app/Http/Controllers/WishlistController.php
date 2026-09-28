@@ -29,4 +29,15 @@ class WishlistController extends Controller
 
         return redirect()->route('wishlist.index');
     }
+
+    public function toggle(Destinasi $destinasi){
+        $user=User::find(session('id_user'));
+
+        if($user->wishlist->contains($destinasi->id_destinasi))
+            $user->wishlist()->detach($destinasi->id_destinasi);
+        else
+            $user->wishlist()->attach($destinasi->id_destinasi);
+
+        return redirect(url()->previous().'#dest-'.$destinasi->id_destinasi);
+    }
 }

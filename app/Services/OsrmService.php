@@ -20,7 +20,8 @@ class OsrmService{
             'roundtrip'=>'false',
             'source'=>'first',
             'destination'=>'any',
-            'overview'=>'false'
+            'overview'=>'full',
+            'geometries'=>'geojson'
         ]);
 
         $data=$response->json();
@@ -43,10 +44,16 @@ class OsrmService{
             $item['jarak_dari_sebelumnya_km']=isset($legs[$index]) ? $legs[$index]['distance']/1000:null;
         }
 
+        $geometriRute=array_map(
+            fn($koor)=>[$koor[1],$koor[0]], // osrm: [lon,lat] -> leaflet butuh [lat,lon]
+            $data['trips'][0]['geometry']['coordinates'] ?? []
+        );
+
         return [
             'urutan'=>$urutan,
             'total_jarak_km'=>($data['trips'][0]['distance'] ?? 0)/1000,
-            'total_durasi_menit'=>($data['trips'][0]['duration'] ?? 0)/60
+            'total_durasi_menit'=>($data['trips'][0]['duration'] ?? 0)/60,
+            'geometri_rute'=>$geometriRute
         ];
     }
 }

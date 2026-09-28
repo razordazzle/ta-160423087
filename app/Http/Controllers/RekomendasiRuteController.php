@@ -26,6 +26,6 @@ class RekomendasiRuteController extends Controller
         if($hasilRute===null)
             return back()->withErrors(['osrm'=>'Gagal menghitung rute. Silakan coba lagi.']);
 
-        return view('rekomendasi-rute.index',compact('hasilRute'));
+        return view('rekomendasi-rute.index',compact('hasilRute','lokasiAwal'));
     }
 }
