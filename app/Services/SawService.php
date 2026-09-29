@@ -47,7 +47,7 @@ class SawService{
                 ),
                 'rating'=>$destinasi->rating,
                 'fasilitas'=>$this->hitungFasilitas($destinasi,$idFasilitasDiinginkan),
-                'popularitas'=>$destinasi->popularitas
+                'popularitas'=>log1p($destinasi->popularitas) // ln(1+jumlah ulasan), subbab 4.1.2
             ];
         }
         

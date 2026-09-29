@@ -71,7 +71,7 @@
                             <svg viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5">
                                 <path d="M10 1c1 3-3 4-3 7a3 3 0 0 0 6 0c1 1 2 2.5 2 4.5A5 5 0 0 1 5 12.5C5 8 8 5 10 1z"/>
                             </svg>
-                            {{ $destinasi->popularitas }}
+                            {{ $destinasi->popularitas_singkat }}
                         </span>
                     </div>
 

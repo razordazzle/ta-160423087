@@ -29,6 +29,9 @@ class CariRekomendasiController extends Controller
 
         session(['id_pencarian'=>$pencarian->id_pencarian]);
 
+        if(session()->has('tujuan_setelah_lokasi'))
+            return redirect(session()->pull('tujuan_setelah_lokasi'));
+
         return redirect()->route('cari-rekomendasi.preferensi');
     }
 

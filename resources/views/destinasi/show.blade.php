@@ -86,7 +86,7 @@
                         </svg>
                         <span class="text-[11px] font-bold tracking-wide uppercase">Popularitas</span>
                     </div>
-                    <p class="mt-2 font-heading font-bold text-lg text-gray-900">{{ $destinasi->popularitas }} <span class="text-sm font-medium text-gray-400">Score</span></p>
+                    <p class="mt-2 font-heading font-bold text-lg text-gray-900">{{ $destinasi->popularitas_singkat }} <span class="text-sm font-medium text-gray-400">Score</span></p>
                 </div>
 
                 <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">

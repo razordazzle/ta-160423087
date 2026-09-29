@@ -17,8 +17,10 @@ class RekomendasiRuteController extends Controller
 
         $pencarian=Pencarian::where('id_user',$user->id_user)->latest('waktu_pencarian')->first();
 
-        if(!$pencarian)
-            return redirect()->route('cari-rekomendasi.lokasi')->with('pesan','Silakan isi lokasi awal terlebih dahulu.');
+        if(!$pencarian){
+            session(['tujuan_setelah_lokasi'=>route('rekomendasi-rute.index')]);
+            return redirect()->route('cari-rekomendasi.lokasi')->with('pesan','Isi lokasi awal Anda terlebih dahulu untuk melihat rekomendasi rute.');
+        }
 
         $lokasiAwal=['latitude'=>$pencarian->latitude_awal,'longitude'=>$pencarian->longitude_awal];
         $hasilRute=$osrm->hitungRute($lokasiAwal,$wishlistItems);

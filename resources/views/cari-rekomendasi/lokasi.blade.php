@@ -27,6 +27,15 @@
         <h1 class="mt-10 text-2xl leading-tight font-heading font-bold text-gray-900 text-center">Cari Destinasi Wisata di Bali</h1>
         <p class="text-secondary text-[15px] mt-3 text-center leading-relaxed">Masukkan lokasi awal Anda<br>(nama hotel atau penginapan)</p>
 
+        @if(session('pesan'))
+            <div class="mt-4 flex items-center gap-2 bg-primary/10 text-primary text-sm font-medium rounded-lg px-4 py-3">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0">
+                    <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                </svg>
+                {{ session('pesan') }}
+            </div>
+        @endif
+
         @if($errors->any())
             <div class="mt-4 flex items-center gap-2 bg-red-50 text-red-600 text-sm font-medium rounded-lg px-4 py-3">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0">
