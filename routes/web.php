@@ -38,3 +38,5 @@ Route::get('/destinasi',[DestinasiController::class,'index'])->name('destinasi.i
 Route::get('/destinasi/{destinasi}',[DestinasiController::class,'show'])->name('destinasi.show');
 
 Route::post('/wishlist/toggle/{destinasi}',[WishlistController::class,'toggle'])->name('wishlist.toggle');
+
+Route::post('/logout',[LoginController::class,'logout'])->name('logout');
