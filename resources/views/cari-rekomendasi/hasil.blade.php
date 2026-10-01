@@ -1,4 +1,3 @@
-<!-- resources/views/cari-rekomendasi/hasil.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,44 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hasil Rekomendasi</title>
     <style>
-        .peta-label {
-            background: #fff;
-            border: none;
-            border-radius: 9999px;
-            padding: 4px 10px;
-            font-weight: 600;
-            font-size: 12px;
-            color: #334155;
-            box-shadow: 0 1px 4px rgba(0,0,0,.15);
+        .peta-label{
+            background:#fff;
+            border:none;
+            border-radius:9999px;
+            padding:4px 10px;
+            font-weight:600;
+            font-size:12px;
+            color:#334155;
+            box-shadow:0 1px 4px rgba(0,0,0,.15);
         }
-        .peta-label::before { display: none; }
+        .peta-label::before{display:none;}
     </style>
 </head>
 <body>
     @extends('layouts.app')
-
     @section('title','Hasil Rekomendasi')
-
     @section('content')
+
     @php
-        $jarakKm = function ($lat1, $lon1, $lat2, $lon2) {
-            $R = 6371;
-            $dLat = deg2rad($lat2 - $lat1);
-            $dLon = deg2rad($lon2 - $lon1);
-            $a = sin($dLat / 2) ** 2 + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * sin($dLon / 2) ** 2;
-            return $R * 2 * atan2(sqrt($a), sqrt(1 - $a));
+        $jarakKm=function($lat1,$lon1,$lat2,$lon2){
+            $R=6371;
+            $dLat=deg2rad($lat2-$lat1);
+            $dLon=deg2rad($lon2-$lon1);
+            $a=sin($dLat/2)**2+cos(deg2rad($lat1))*cos(deg2rad($lat2))*sin($dLon/2)**2;
+            return $R*2*atan2(sqrt($a),sqrt(1-$a));
         };
     @endphp
 
     <div class="max-w-md mx-auto px-6 pt-6 pb-10">
         {{-- Top bar --}}
         <div class="relative flex items-center">
-            <a href="{{ route('home') }}" class="text-gray-700">
+            <a href="{{ route('home') }}" class="relative z-10 text-gray-700">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
                     <path d="M19 12H5M12 19l-7-7 7-7"/>
                 </svg>
             </a>
             <span class="absolute inset-x-0 text-center text-xs font-bold tracking-widest uppercase text-gray-500">Hasil Rekomendasi</span>
+            @include('partials.tombol-wishlist')
         </div>
 
         {{-- Header --}}

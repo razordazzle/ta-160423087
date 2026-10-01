@@ -15,12 +15,13 @@
     <div class="max-w-md mx-auto px-6 pt-6 pb-10">
         {{-- Top bar --}}
         <div class="relative flex items-center">
-            <a href="{{ route('home') }}" class="text-gray-700">
+            <a href="{{ route('home') }}" class="relative z-10 text-gray-700">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
                     <path d="M19 12H5M12 19l-7-7 7-7"/>
                 </svg>
             </a>
             <span class="absolute inset-x-0 text-center text-xs font-bold tracking-widest uppercase text-gray-500">Daftar Destinasi</span>
+            @include('partials.tombol-wishlist')
         </div>
 
         {{-- Header --}}
