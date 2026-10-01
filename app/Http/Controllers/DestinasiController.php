@@ -26,6 +26,11 @@ class DestinasiController extends Controller
     }
 
     public function show(Destinasi $destinasi){
-        return view('destinasi.show',compact('destinasi'));
+        $sebelumnya=url()->previous();
+        if($sebelumnya !== url()->current() && !str_starts_with($sebelumnya,route('wishlist.index')))
+            session(['detail_asal'=>$sebelumnya]);
+        $asal=session('detail_asal',route('destinasi.index'));
+
+        return view('destinasi.show',compact('destinasi','asal'));
     }
 }

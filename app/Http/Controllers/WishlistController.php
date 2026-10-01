@@ -11,7 +11,12 @@ class WishlistController extends Controller
         $user=User::find(session('id_user'));
         $wishlist=$user->wishlist;
 
-        return view('wishlist.index',compact('wishlist'));
+        $sebelumnya=url()->previous();
+        if(!str_starts_with($sebelumnya,route('wishlist.index')) && !str_starts_with($sebelumnya,route('rekomendasi-rute.index')))
+            session(['wishlist_asal'=>$sebelumnya]);
+        $asal=session('wishlist_asal',route('home'));
+
+        return view('wishlist.index',compact('wishlist','asal'));
     }
 
     public function tambah(Destinasi $destinasi){
