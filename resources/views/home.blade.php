@@ -57,7 +57,7 @@
         </a>
 
         {{-- Rekomendasi Personal --}}
-        <div class="mt-6 rounded-2xl p-6 bg-gradient-to-br from-primary to-secondary shadow-lg shadow-primary/20">
+        <a href="{{ route('cari-rekomendasi.lokasi') }}" class="block mt-6 rounded-2xl p-6 bg-gradient-to-br from-primary to-secondary shadow-lg shadow-primary/20 active:opacity-90">
             <div class="flex items-center gap-2">
                 <span class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
@@ -71,13 +71,13 @@
             <h2 class="mt-3 font-heading font-bold text-xl text-white">Cari Rekomendasi Personal</h2>
             <p class="text-sm text-white/80 mt-1.5 leading-relaxed">Dapatkan urutan destinasi sesuai preferensi dan lokasi Anda</p>
 
-            <a href="{{ route('cari-rekomendasi.lokasi') }}" class="mt-4 inline-flex items-center gap-1.5 text-white font-semibold text-sm">
+            <span class="mt-4 inline-flex items-center gap-1.5 text-white font-semibold text-sm">
                 Mulai Sekarang
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
                     <path d="M5 12h14M13 5l7 7-7 7"/>
                 </svg>
-            </a>
-        </div>
+            </span>
+        </a>
 
         {{-- Destinasi Populer --}}
         <h2 class="mt-8 font-heading font-bold text-lg text-gray-900">Destinasi Populer</h2>

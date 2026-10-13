@@ -18,7 +18,7 @@ class GeocodingService{
         $hasil=$data['results'][0];
         $types=$hasil['types'] ?? [];
 
-        $tipeValid=['lodging','establishment','point_of_interest','premise','street_addreess'];
+        $tipeValid=['lodging','establishment','point_of_interest','premise','street_address'];
         if(empty(array_intersect($types,$tipeValid)))
             return null;
         

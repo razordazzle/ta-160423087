@@ -118,7 +118,7 @@
                                     <path d="m3 17 6-6 4 4 8-8"/>
                                     <path d="M15 7h6v6"/>
                                 </svg>
-                                Nilai {{ round($destinasi->pivot->nilai_preferensi*100) }}
+                            Nilai {{ round($destinasi->pivot->nilai_preferensi*100) }}
                             </div>
                         </div>
                     </div>

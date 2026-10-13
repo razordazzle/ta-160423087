@@ -1,4 +1,3 @@
-<!-- resources/views/cari-rekomendasi/fasilitas.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
