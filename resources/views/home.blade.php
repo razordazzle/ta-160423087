@@ -84,7 +84,7 @@
 
         <div class="mt-4 space-y-4">
             @foreach ($destinasiPopuler as $destinasi)
-                <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
+                <a href="{{ route('destinasi.show', $destinasi) }}" class="block bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 active:opacity-90">
                     <div class="relative h-48 w-full {{ !$destinasi->gambar ? 'bg-gradient-to-br from-slate-400 to-slate-600 flex items-center justify-center' : '' }}">
                         @if ($destinasi->gambar)
                             <img src="{{ asset('storage/destinasi/' . $destinasi->gambar) }}" alt="{{ $destinasi->nama }}" class="absolute inset-0 h-full w-full object-cover">
@@ -119,14 +119,14 @@
                                 <span class="block text-[11px] font-medium tracking-wide uppercase text-gray-400">Tiket Masuk</span>
                                 <span class="block font-heading font-bold text-primary mt-0.5">Mulai Rp {{ number_format($destinasi->harga_tiket,0,',','.') }}</span>
                             </div>
-                            <a href="{{ route('destinasi.show', $destinasi) }}" class="shrink-0 w-10 h-10 rounded-full bg-secondary text-white flex items-center justify-center">
+                            <span class="shrink-0 w-10 h-10 rounded-full bg-secondary text-white flex items-center justify-center">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
                                     <path d="M5 12h14M13 5l7 7-7 7"/>
                                 </svg>
-                            </a>
+                            </span>
                         </div>
                     </div>
-                </div>
+                </a>
             @endforeach
         </div>
 
