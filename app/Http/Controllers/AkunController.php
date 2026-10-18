@@ -55,7 +55,7 @@ class AkunController extends Controller{
 
         session(['id_pencarian'=>$pencarian->id_pencarian]);
 
-        return redirect()->route('cari-rekomendasi.hasil');
+        return redirect()->route('cari-rekomendasi.hasil',['dari'=>'akun']);
     }
 }
 ?>

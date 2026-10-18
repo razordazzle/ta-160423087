@@ -115,7 +115,7 @@
             {{-- Wishlist --}}
             <form method="POST" action="{{ route('wishlist.tambah', $destinasi) }}" class="mt-8">
                 @csrf
-                <button type="submit" class="w-full flex items-center justify-center gap-2 bg-primary text-white font-bold text-[15px] rounded-full py-4">
+                <button type="submit" class="w-full flex items-center justify-center gap-2 bg-primary text-white font-bold text-[15px] rounded-2xl py-4">
                     <svg viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
                         <path d="M10 17.5s-6.5-4-8.5-8A4.5 4.5 0 0 1 10 5a4.5 4.5 0 0 1 8.5 4.5c-2 4-8.5 8-8.5 8Z"/>
                     </svg>

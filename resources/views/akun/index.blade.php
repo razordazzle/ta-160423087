@@ -117,7 +117,7 @@
                         </button>
                     </div>
 
-                    <button type="submit" class="mt-8 w-full bg-primary text-white font-bold text-[15px] rounded-full py-4 shadow-lg shadow-primary/20">Simpan Perubahan</button>
+                    <button type="submit" class="mt-8 w-full bg-primary text-white font-bold text-[15px] rounded-2xl py-4 shadow-lg shadow-primary/20">Simpan Perubahan</button>
                 </form>
             @else
                 <div class="mt-6 bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
@@ -125,8 +125,8 @@
                     <p class="mt-1 text-sm text-gray-500 leading-relaxed">Registrasi atau login diperlukan untuk mengelola data akun Anda.</p>
 
                     <div class="mt-5 space-y-3">
-                        <a href="{{ route('registrasi.form') }}" class="block w-full text-center bg-primary text-white font-bold text-[15px] rounded-full py-3.5 shadow-lg shadow-primary/20">Registrasi</a>
-                        <a href="{{ route('login.form') }}" class="block w-full text-center bg-white text-primary border border-primary font-bold text-[15px] rounded-full py-3.5">Login</a>
+                        <a href="{{ route('registrasi.form') }}" class="block w-full text-center bg-primary text-white font-bold text-[15px] rounded-2xl py-3.5 shadow-lg shadow-primary/20">Registrasi</a>
+                        <a href="{{ route('login.form') }}" class="block w-full text-center bg-white text-primary border border-primary font-bold text-[15px] rounded-2xl py-3.5">Login</a>
                     </div>
                 </div>
             @endif

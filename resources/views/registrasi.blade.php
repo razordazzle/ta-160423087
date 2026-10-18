@@ -77,7 +77,7 @@
                 </button>
             </div>
 
-            <button type="submit" class="mt-8 w-full bg-primary text-white font-bold text-[15px] rounded-full py-4 shadow-lg shadow-primary/20">Daftar</button>
+            <button type="submit" class="mt-8 w-full bg-primary text-white font-bold text-[15px] rounded-2xl py-4 shadow-lg shadow-primary/20">Daftar</button>
         </form>
 
         <p class="mt-5 text-center text-sm text-gray-600">Sudah punya akun? <a href="{{ route('login.form') }}" class="text-secondary font-semibold">Masuk</a></p>

@@ -113,13 +113,14 @@ class CariRekomendasiController extends Controller
         return redirect()->route('cari-rekomendasi.hasil');
     }
 
-    public function hasilShow(){
+    public function hasilShow(Request $request){
         $pencarian=Pencarian::find(session('id_pencarian'));
         if(!$pencarian) return redirect()->route('cari-rekomendasi.lokasi');
 
         $hasil=$pencarian->hasilRekomendasi()->orderByPivot('nilai_preferensi','desc')->get();
         $idWishlist=\App\Models\User::find(session('id_user'))->wishlist->pluck('id_destinasi')->all();
+        $asal=$request->query('dari')==='akun'?route('akun.index',['tab'=>'riwayat']):route('home');
 
-        return view('cari-rekomendasi.hasil',compact('hasil','pencarian','idWishlist'));
+        return view('cari-rekomendasi.hasil',compact('hasil','pencarian','idWishlist','asal'));
     }
 }
