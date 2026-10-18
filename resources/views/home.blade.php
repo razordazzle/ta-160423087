@@ -31,7 +31,7 @@
                 </button>
 
                 <div id="menu-akun" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-2xl border border-gray-100 shadow-lg overflow-hidden z-10">
-                    <span class="block px-4 py-3 text-sm text-gray-400 cursor-not-allowed select-none">Akun Saya</span>
+                    <a href="{{ route('akun.index') }}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">Akun Saya</a>
 
                     <a href="{{ route('wishlist.index') }}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 border-t border-gray-100">Wishlist Saya</a>
 

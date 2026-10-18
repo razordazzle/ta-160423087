@@ -8,6 +8,7 @@ use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CariRekomendasiController;
+use App\Http\Controllers\AkunController;
 
 Route::get('/',[HomeController::class,'index'])->name('home');
 
@@ -40,3 +41,7 @@ Route::get('/destinasi/{destinasi}',[DestinasiController::class,'show'])->name('
 Route::post('/wishlist/toggle/{destinasi}',[WishlistController::class,'toggle'])->name('wishlist.toggle');
 
 Route::post('/logout',[LoginController::class,'logout'])->name('logout');
+
+Route::get('/akun',[AkunController::class,'index'])->name('akun.index');
+Route::put('/akun',[AkunController::class,'update'])->name('akun.update');
+Route::get('/akun/riwayat/{pencarian}',[AkunController::class,'bukaRiwayat'])->name('akun.riwayat.buka');

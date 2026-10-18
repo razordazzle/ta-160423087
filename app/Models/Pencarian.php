@@ -8,6 +8,7 @@ class Pencarian extends Model
 {
     protected $table='pencarian';
     protected $primaryKey='id_pencarian';
+    protected $casts=['waktu_pencarian'=>'datetime'];
     public $timestamps=false;
     
     protected $fillable=['lokasi_awal','latitude_awal','longitude_awal','waktu_pencarian','id_user'];
