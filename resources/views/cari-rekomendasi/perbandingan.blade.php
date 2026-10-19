@@ -106,12 +106,20 @@
                 </div>
             @endforeach
 
-            <button type="button" id="btn-lanjut" onclick="handleLanjut()" class="mt-6 w-full flex items-center justify-center gap-2 bg-primary text-white font-bold text-[15px] rounded-2xl py-4 shadow-lg shadow-primary/20">
-                Lanjut
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
-                    <path d="M5 12h14M13 5l7 7-7 7"/>
-                </svg>
-            </button>
+            <div class="mt-6 flex gap-3">
+                <button type="button" id="btn-sebelumnya" onclick="handleSebelumnya()" class="hidden bg-white border border-gray-200 text-gray-700 font-bold text-[15px] rounded-2xl py-4 px-5 flex items-center justify-center gap-2">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    Sebelumnya
+                </button>
+                <button type="button" id="btn-lanjut" onclick="handleLanjut()" class="flex-1 flex items-center justify-center gap-2 bg-primary text-white font-bold text-[15px] rounded-2xl py-4 shadow-lg shadow-primary/20">
+                    Lanjut
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                        <path d="M5 12h14M13 5l7 7-7 7"/>
+                    </svg>
+                </button>
+            </div>
         </form>
     </div>
 
@@ -127,6 +135,7 @@
                 });
                 document.getElementById('current-step').textContent = n;
                 document.getElementById('progress-bar').style.width = (n / totalStep * 100) + '%';
+                document.getElementById('btn-sebelumnya').classList.toggle('hidden',n===1);
             }
 
             window.updateSlider = function (rangeEl) {
@@ -143,6 +152,13 @@
                     document.getElementById('form-perbandingan').submit();
                 }
             };
+
+            window.handleSebelumnya=function(){
+                if(step>1){
+                    step--;
+                    showStep(step);
+                }
+            }
 
             document.querySelectorAll('input[type=range]').forEach(function (r) {
                 window.updateSlider(r);
