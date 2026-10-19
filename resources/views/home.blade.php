@@ -25,15 +25,16 @@
                         <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/>
                         <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/>
                     </svg>
-                    @if ($jumlahWishlist > 0)
-                        <span class="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-secondary text-white text-[10px] font-bold flex items-center justify-center">{{ $jumlahWishlist }}</span>
-                    @endif
                 </button>
 
                 <div id="menu-akun" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-2xl border border-gray-100 shadow-lg overflow-hidden z-10">
                     <a href="{{ route('akun.index') }}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">Akun Saya</a>
-
-                    <a href="{{ route('wishlist.index') }}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 border-t border-gray-100">Wishlist Saya</a>
+                        <a href="{{ route('wishlist.index') }}" class="flex items-center justify-between px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 border-t border-gray-100">
+                            Wishlist Saya
+                            @if ($jumlahWishlist > 0)
+                                <span class="min-w-[18px] h-[18px] px-1 rounded-full bg-secondary text-white text-[10px] font-bold flex items-center justify-center">{{ $jumlahWishlist }}</span>
+                            @endif
+                        </a>
 
                     @if ($sudahLogin)
                         <form method="POST" action="{{ route('logout') }}" class="border-t border-gray-100">
@@ -130,7 +131,7 @@
             @endforeach
         </div>
 
-        <a href="{{ route('destinasi.index') }}" class="mt-6 flex items-center justify-center gap-2 bg-primary/10 text-primary font-semibold text-sm rounded-xl py-3.5">
+        <a href="{{ route('destinasi.index') }}" class="mt-6 flex items-center justify-center gap-2 bg-primary/10 text-primary font-semibold text-sm rounded-2xl py-3.5">
             Lihat Semua Destinasi
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
                 <path d="M5 12h14M13 5l7 7-7 7"/>

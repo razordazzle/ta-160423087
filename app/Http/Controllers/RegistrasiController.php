@@ -9,10 +9,19 @@ use Illuminate\Support\Facades\Hash;
 class RegistrasiController extends Controller
 {
     public function form(){
-        return view('registrasi');
+        if(User::find(session('id_user'))->email!=null) return redirect()->route('home');
+
+        $sebelumnya=url()->previous();
+        if(!str_starts_with($sebelumnya,route('login.form')) && !str_starts_with($sebelumnya,route('registrasi.form')))
+            session(['auth_asal'=>$sebelumnya]);
+        $asal=session('auth_asal',route('home'));
+
+        return view('registrasi',compact('asal'));
     }
 
     public function store(Request $request){
+        if(User::find(session('id_user'))->email!=null) return redirect()->route('home');
+        
         $request->validate([
             'email'=>'required|email|unique:user,email',
             'password'=>'required|min:8|confirmed'

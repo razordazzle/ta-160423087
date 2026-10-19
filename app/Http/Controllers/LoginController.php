@@ -10,7 +10,12 @@ use Illuminate\Support\Facades\Cookie;
 class LoginController extends Controller
 {
     public function form(){
-        return view('login');
+        $sebelumnya=url()->previous();
+        if(!str_starts_with($sebelumnya,route('login.form')) && !str_starts_with($sebelumnya,route('registrasi.form')))
+            session(['auth_asal'=>$sebelumnya]);
+        $asal=session('auth_asal',route('home'));
+
+        return view('login',compact('asal'));
     }
 
     public function store(Request $request){
