@@ -48,6 +48,14 @@
             </div>
         </div>
 
+        @if(session('pesan'))
+            <div class="mt-4 flex items-center gap-2 bg-primary/10 text-primary text-sm font-medium rounded-lg px-4 py-3">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0">
+                    <path d="M20 6 9 17l-5-5"/>
+                </svg>
+                {{ session('pesan') }}
+            </div>
+        @endif
         {{-- Search bar --}}
         <a href="{{ route('destinasi.index') }}" class="mt-6 flex items-center gap-3 bg-slate-100 rounded-xl px-4 py-3.5 text-gray-400">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 shrink-0">

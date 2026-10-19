@@ -25,7 +25,6 @@ Route::post('/cari-rekomendasi/perbandingan',[CariRekomendasiController::class,'
 
 Route::get('/cari-rekomendasi/hasil',[CariRekomendasiController::class,'hasilShow'])->name('cari-rekomendasi.hasil');
 
-Route::post('/wishlist/tambah/{destinasi}',[WishlistController::class,'tambah'])->name('wishlist.tambah');
 Route::get('/wishlist',[WishlistController::class,'index'])->name('wishlist.index');
 Route::delete('/wishlist/{destinasi}',[WishlistController::class,'hapus'])->name('wishlist.hapus');
 Route::get('/rekomendasi-rute',[RekomendasiRuteController::class,'index'])->name('rekomendasi-rute.index');

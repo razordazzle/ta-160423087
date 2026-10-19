@@ -37,6 +37,6 @@ class LoginController extends Controller
     public function logout(){
         session()->forget('id_user');
         Cookie::queue(Cookie::forget('kode_sesi'));
-        return redirect()->route('home');
+        return redirect()->route('home')->with('pesan','Logout berhasil.');
     }
 }
