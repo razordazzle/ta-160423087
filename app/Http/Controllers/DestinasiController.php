@@ -31,6 +31,8 @@ class DestinasiController extends Controller
             session(['detail_asal'=>$sebelumnya]);
         $asal=session('detail_asal',route('destinasi.index'));
 
-        return view('destinasi.show',compact('destinasi','asal'));
+        $sudahWishlist=\App\Models\User::find(session('id_user'))->wishlist->contains($destinasi->id_destinasi);
+
+        return view('destinasi.show',compact('destinasi','asal','sudahWishlist'));
     }
 }

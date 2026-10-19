@@ -113,13 +113,23 @@
             <p class="mt-3 text-gray-600 text-[15px] leading-relaxed">{{ $destinasi->deskripsi }}</p>
 
             {{-- Wishlist --}}
-            <form method="POST" action="{{ route('wishlist.tambah', $destinasi) }}" class="mt-8">
+            <form method="POST" action="{{ route('wishlist.toggle',$destinasi) }}" class="mt-8">
                 @csrf
-                <button type="submit" class="w-full flex items-center justify-center gap-2 bg-primary text-white font-bold text-[15px] rounded-2xl py-4">
-                    <svg viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                        <path d="M10 17.5s-6.5-4-8.5-8A4.5 4.5 0 0 1 10 5a4.5 4.5 0 0 1 8.5 4.5c-2 4-8.5 8-8.5 8Z"/>
-                    </svg>
-                    Tambah ke Wishlist
+                <button type="submit" class="w-full flex items-center justify-center gap-2 font-bold text-[15px] rounded-2xl py-4 {{ $sudahWishlist?'bg-red-50 text-red-600':'bg-primary text-white' }}">
+                    @if($sudahWishlist)
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+                            <path d="M4 7h16"/>
+                            <path d="M10 11v6M14 11v6"/>
+                            <path d="M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13"/>
+                            <path d="M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/>
+                        </svg>
+                        Hapus dari Wishlist
+                    @else
+                        <svg viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                            <path d="M10 17.5s-6.5-4-8.5-8A4.5 4.5 0 0 1 10 5a4.5 4.5 0 0 1 8.5 4.5c-2 4-8.5 8-8.5 8Z"/>
+                        </svg>
+                        Tambah ke Wishlist
+                    @endif
                 </button>
             </form>
         </div>

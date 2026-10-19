@@ -38,11 +38,15 @@ class WishlistController extends Controller
     public function toggle(Destinasi $destinasi){
         $user=User::find(session('id_user'));
 
-        if($user->wishlist->contains($destinasi->id_destinasi))
+        if($user->wishlist->contains($destinasi->id_destinasi)){
             $user->wishlist()->detach($destinasi->id_destinasi);
-        else
+            $pesan='Dihapus dari wishlist.';
+        }
+        else{
             $user->wishlist()->attach($destinasi->id_destinasi);
+            $pesan='Ditambahkan ke wishlist.';
+        }
 
-        return redirect(url()->previous().'#dest-'.$destinasi->id_destinasi);
+        return redirect(url()->previous().'#dest-'.$destinasi->id_destinasi)->with('pesan',$pesan);
     }
 }
