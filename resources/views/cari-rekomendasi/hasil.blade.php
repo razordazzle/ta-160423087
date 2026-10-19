@@ -54,7 +54,7 @@
 
         {{-- Cards --}}
         <div class="mt-4">
-            @foreach ($hasil as $index=>$destinasi)
+            @foreach ($tampil as $index=>$destinasi)
                 @php
                     $jarak=$jarakKm($pencarian->latitude_awal,$pencarian->longitude_awal,$destinasi->latitude,$destinasi->longitude);
                     $sudahWishlist=in_array($destinasi->id_destinasi,$idWishlist);
@@ -124,6 +124,14 @@
                     </div>
                 </div>
             @endforeach
+            @if($hasil->count()>$batas)
+                <a href="{{ request()->fullUrlWithQuery(['tampil'=>$batas+$langkah]) }}#dest-{{ $hasil[$batas]->id_destinasi }}" class="mt-4 w-full bg-white border border-gray-200 text-gray-700 font-bold text-[15px] rounded-2xl py-4 flex items-center justify-center gap-2">
+                    Tampilkan {{ min($langkah,$hasil->count()-$batas) }} destinasi lagi
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </a>
+            @endif
         </div>
     </div>
 

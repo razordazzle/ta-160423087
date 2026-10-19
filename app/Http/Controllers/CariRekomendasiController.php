@@ -121,6 +121,10 @@ class CariRekomendasiController extends Controller
         $idWishlist=\App\Models\User::find(session('id_user'))->wishlist->pluck('id_destinasi')->all();
         $asal=$request->query('dari')==='akun'?route('akun.index',['tab'=>'riwayat']):route('home');
 
-        return view('cari-rekomendasi.hasil',compact('hasil','pencarian','idWishlist','asal'));
+        $langkah=5;
+        $batas=max($langkah,(int)$request->query('tampil',$langkah));
+        $tampil=$hasil->take($batas);
+
+        return view('cari-rekomendasi.hasil',compact('hasil','pencarian','idWishlist','asal','tampil','batas','langkah'));
     }
 }
