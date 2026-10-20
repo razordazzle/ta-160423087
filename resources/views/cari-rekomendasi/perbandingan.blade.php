@@ -58,13 +58,18 @@
         <h1 class="mt-6 text-2xl leading-tight font-heading font-bold text-gray-900">Preferensi Kriteria</h1>
         <p class="text-gray-600 text-[15px] mt-2 leading-relaxed">Geser ke arah kriteria yang menurut Anda lebih penting</p>
 
-        @if ($errors->any())
-            <div class="mt-4 flex items-center gap-2 bg-red-50 text-red-600 text-sm font-medium rounded-lg px-4 py-3">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0">
+        @if($errors->any())
+            <div class="mt-4 flex items-start gap-2 bg-red-50 text-red-600 text-sm font-medium rounded-lg px-4 py-3">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0 mt-0.5">
                     <circle cx="12" cy="12" r="9"/>
                     <path d="M12 8v4M12 16h.01"/>
                 </svg>
-                {{ $errors->first() }}
+                <div>
+                    <p>{{ $errors->first() }}</p>
+                    @if($errors->has('cr'))
+                        <button type="button" onclick="mulaiUlang()" class="mt-1 text-sm font-semibold underline">Mulai ulang dari awal</button>
+                    @endif
+                </div>
             </div>
         @endif
 
@@ -82,6 +87,16 @@
 
             @foreach ($pasangan as $i=>[$a,$b])
                 <div class="comparison-step {{ $i === 0 ? '' : 'hidden' }} bg-white rounded-2xl border border-gray-100 shadow-sm p-6" data-step="{{ $i + 1 }}">
+                    @if (session('langkah_tinjau') == $i + 1)
+                        <div class="mb-3 flex items-center gap-1 text-xs font-semibold text-amber-600">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0">
+                                <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/>
+                                <path d="M12 9v4"/>
+                                <path d="M12 17h.01"/>
+                            </svg>
+                            Perlu ditinjau
+                        </div>
+                    @endif
                     <div class="flex items-center justify-between">
                         <span class="capitalize font-heading font-bold text-xl text-primary">{{ $kriteria[$a] }}</span>
                         <span class="capitalize font-heading font-bold text-xl text-secondary">{{ $kriteria[$b] }}</span>
@@ -125,13 +140,14 @@
 
     <script>
         (function () {
-            var totalStep = 10;
-            var skala = [9, 7, 5, 3, 1, 1 / 3, 1 / 5, 1 / 7, 1 / 9];
-            var step = 1;
+            var totalStep=10;
+            var skala=[9,7,5,3,1,1/3,1/5,1/7,1/9];
+            var step={{ session('langkah_tinjau',1) }};
+            var nilaiTersimpan=@json($nilaiTersimpan);
 
-            function showStep(n) {
-                document.querySelectorAll('.comparison-step').forEach(function (el) {
-                    el.classList.toggle('hidden', Number(el.dataset.step) !== n);
+            function showStep(n){
+                document.querySelectorAll('.comparison-step').forEach(function (el){
+                    el.classList.toggle('hidden',Number(el.dataset.step)!==n);
                 });
                 document.getElementById('current-step').textContent = n;
                 document.getElementById('progress-bar').style.width = (n / totalStep * 100) + '%';
@@ -160,9 +176,27 @@
                 }
             }
 
+            window.mulaiUlang=function(){
+                document.querySelectorAll('input[type=range]').forEach(function(r){
+                    r.value=5;
+                    window.updateSlider(r);
+                });
+                step=1;
+                showStep(step);
+            }
+
             document.querySelectorAll('input[type=range]').forEach(function (r) {
+                var tersimpan=nilaiTersimpan[Number(r.dataset.index)];
+                if(tersimpan!==undefined){
+                    var posisi=0;
+                    skala.forEach(function(s,k){
+                        if(Math.abs(s-tersimpan)<Math.abs(skala[posisi]-tersimpan)) posisi=k;
+                    });
+                    r.value=posisi+1;
+                }
                 window.updateSlider(r);
             });
+            showStep(step);
         })();
     </script>
     @endsection

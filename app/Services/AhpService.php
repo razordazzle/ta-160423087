@@ -100,5 +100,28 @@ class AhpService{
     public function bobotDefault():array{
         return [0.1965,0.1991,0.2123,0.2070,0.1851];
     }
+
+    /**
+     * cari pasangan yg paling menyimpang dari konsistensi (eps_ij = a_ij*w_j/w_i, makin jauh dari 1 makin menyimpang)
+     * lagkah = nomor perbandingan 1-10 sesuai urutan input, baris & kolom = index kriteria 0-4
+     */
+    public function cariPasanganMenyimpang(array $nilaiInput,array $bobot):array{
+        $n=self::JUMLAH_KRITERIA;
+        $selisihMax=-1;
+        $hasil=[];
+
+        $indexInput=0;
+        for($i=0;$i<$n;$i++){
+            for($j=$i+1;$j<$n;$j++){
+                $selisih=abs(log($nilaiInput[$indexInput]*$bobot[$j]/$bobot[$i]));
+                if($selisih>$selisihMax){
+                    $selisihMax=$selisih;
+                    $hasil=['langkah'=>$indexInput+1,'baris'=>$i,'kolom'=>$j];
+                }
+                $indexInput++;
+            }
+        }
+        return $hasil;
+    }
 }
 ?>

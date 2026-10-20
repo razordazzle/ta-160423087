@@ -79,7 +79,8 @@ class CariRekomendasiController extends Controller
 
     public function perbandinganForm(){
         $kriteria=\App\Models\Kriteria::pluck('nama_kriteria','id_kriteria');
-        return view('cari-rekomendasi.perbandingan',compact('kriteria'));
+        $nilaiTersimpan=\App\Models\PerbandinganBerpasangan::ambilUntukAhp((int)session('id_pencarian'));
+        return view('cari-rekomendasi.perbandingan',compact('kriteria','nilaiTersimpan'));
     }
 
     public function perbandinganStore(Request $request,\App\Services\AhpService $ahp,\App\Services\SawService $saw){
@@ -95,12 +96,17 @@ class CariRekomendasiController extends Controller
 
         $hasilAhp=$ahp->proses($nilaiInput);
 
-        if(!$hasilAhp['konsisten'])
-            return back()->withErrors(['cr'=>'Nilai perbandingan belum konsisten (CR = '.round($hasilAhp['cr'],3).'). Silakan sesuaikan kembali.']);
+        $urutanKriteria=['harga','jarak','rating','fasilitas','popularitas'];        
+        if(!$hasilAhp['konsisten']){
+            $menyimpang=$ahp->cariPasanganMenyimpang($nilaiInput,$hasilAhp['bobot']);
+
+            return redirect()->route('cari-rekomendasi.perbandingan')
+                ->with('langkah_tinjau',$menyimpang['langkah'])
+                ->withErrors(['cr'=>'Penilaian belum konsisten (CR = '.round($hasilAhp['cr'],3).'). Perbandingan '.$urutanKriteria[$menyimpang['baris']].' dan '.$urutanKriteria[$menyimpang['kolom']].' paling menyimpang, mohon tinjau kembali.']);
+        }
 
         $kriteriaByNama=\App\Models\Kriteria::pluck('id_kriteria','nama_kriteria');
-        $urutanKriteria=['harga','jarak','rating','fasilitas','popularitas'];
-
+        
         $dataBobot=[];
         foreach($urutanKriteria as $index=>$nama){
             $dataBobot[$kriteriaByNama[$nama]]=['nilai_bobot'=>$hasilAhp['bobot'][$index]];
