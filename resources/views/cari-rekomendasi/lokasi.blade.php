@@ -48,6 +48,7 @@
 
         <form method="POST" action="{{ route('cari-rekomendasi.lokasi.store') }}" class="mt-6">
             @csrf
+            <input type="hidden" name="place_id" id="place_id">
 
             <div class="relative">
                 <span class="absolute left-4 top-1/2 -translate-y-1/2 text-primary">
@@ -56,9 +57,26 @@
                         <circle cx="12" cy="9" r="2.5"/>
                     </svg>
                 </span>
-                <input type="text" name="lokasi_awal" placeholder="Contoh: Ayana Resort Bali" value="{{ old('lokasi_awal') }}" required
+                <input id="lokasi_awal" type="text" name="lokasi_awal" autocomplete="off" placeholder="Contoh: Ayana Resort Bali" value="{{ old('lokasi_awal') }}" required
                     class="w-full bg-white border border-gray-200 rounded-2xl pl-11 pr-4 py-3.5 text-[15px] text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary">
+                    <div id="saran-lokasi" class="hidden absolute left-0 right-0 top-full mt-2 z-20 bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden">
+                        <ul id="daftar-saran" role="listbox"></ul>
+                        <p translate="no" class="border-t border-gray-100 px-4 py-2 text-right text-xs font-normal text-[#5E5E5E]" style="font-family: Roboto, sans-serif;">Google Maps</p>
+                    </div>
             </div>
+
+            <template id="tpl-saran">
+                <li role="option" aria-selected="false" class="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-gray-50 aria-selected:bg-primary/5">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0 text-gray-400">
+                        <path d="M12 21s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12Z"/>
+                        <circle cx="12" cy="9" r="2.5"/>
+                    </svg>
+                    <div class="min-w-0 flex-1">
+                        <span data-utama class="block text-[15px] font-medium text-gray-900 truncate"></span>
+                        <span data-keterangan class="block text-xs text-gray-500 truncate"></span>
+                    </div>
+                </li>
+            </template>
 
             <button type="submit" class="mt-4 w-full flex items-center justify-center gap-2 bg-primary text-white font-bold text-[15px] rounded-2xl py-4 shadow-lg shadow-primary/20">
                 Lanjut
@@ -68,6 +86,77 @@
             </button>
         </form>
     </div>
+    <script>
+        var input=document.getElementById('lokasi_awal');
+        var kotak=document.getElementById('saran-lokasi');
+        var daftar=document.getElementById('daftar-saran');
+        var templateItem=document.getElementById('tpl-saran');
+        var inputPlaceId=document.getElementById('place_id');
+        var urlSaran="{{ route('cari-rekomendasi.lokasi.saran',[],false) }}";
+
+        var timer=null; // debounce
+        var permintaan=null; // AbortController utk req yg lg jalan
+
+        function tutup(){
+            kotak.classList.add('hidden');
+        }
+        
+        function batalkan(){
+            clearTimeout(timer);
+            if(permintaan) permintaan.abort();
+        }
+
+        function pilih(saran){
+            batalkan();
+            input.value=saran.utama;
+            inputPlaceId.value=saran.place_id;
+            tutup();
+        }
+
+        function tampilkan(hasil){
+            daftar.innerHTML='';
+            if(hasil.length===0){
+                tutup();
+                return;
+            }
+
+            hasil.forEach(function(saran){
+                var item=templateItem.content.firstElementChild.cloneNode(true);
+                item.querySelector('[data-utama]').textContent=saran.utama;
+                item.querySelector('[data-keterangan]').textContent=saran.keterangan;
+                item.addEventListener('click',function(){ pilih(saran); });
+                daftar.appendChild(item);
+            });
+
+            kotak.classList.remove('hidden');
+        }
+
+        function cari(q){
+            permintaan=new AbortController();
+
+            fetch(urlSaran+'?q='+encodeURIComponent(q),{
+                headers:{ 'Accept': 'application/json' },
+                signal:permintaan.signal
+            }).then(function(r){ return r.ok ? r.json() : [] }).then(tampilkan).catch(function(e){ if(e.name !== 'AbortError') tutup(); });
+        }
+
+        input.addEventListener('input',function(){
+            batalkan();
+            inputPlaceId.value=''; // text diubah manual, pilihan sblmnya ga berlaku
+
+            var q=input.value.trim();
+            if(q.length<3){
+                tutup();
+                return;
+            }
+
+            timer=setTimeout(function(){ cari(q); },300);
+        });
+
+        document.addEventListener('pointerdown',function(e){
+            if(!kotak.contains(e.target) && e.target !== input) tutup();
+        });
+    </script>
     @endsection
 </body>
 </html>

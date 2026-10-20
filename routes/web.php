@@ -14,6 +14,7 @@ Route::get('/',[HomeController::class,'index'])->name('home');
 
 Route::get('/cari-rekomendasi/lokasi',[CariRekomendasiController::class,'lokasiForm'])->name('cari-rekomendasi.lokasi');
 Route::post('/cari-rekomendasi/lokasi',[CariRekomendasiController::class,'lokasiStore'])->name('cari-rekomendasi.lokasi.store');
+Route::get('/cari-rekomendasi/lokasi/saran',[CariRekomendasiController::class,'saranLokasi'])->name('cari-rekomendasi.lokasi.saran')->middleware('throttle:60,1');
 
 Route::get('/cari-rekomendasi/preferensi',[CariRekomendasiController::class,'preferensiForm'])->name('cari-rekomendasi.preferensi');
 Route::post('/cari-rekomendasi/preferensi',[CariRekomendasiController::class,'preferensiStore'])->name('cari-rekomendasi.preferensi.store');

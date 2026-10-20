@@ -13,10 +13,28 @@ class CariRekomendasiController extends Controller
         return view('cari-rekomendasi.lokasi');
     }
 
-    public function lokasiStore(Request $request, GeocodingService $geocoding){
-        $request->validate(['lokasi_awal'=>'required|string|max:255']);
+    // endpoint JSON utk dropdown saran lokasi. via server supaya API key ga keluar ke browser
+    public function saranLokasi(Request $request,GeocodingService $geocoding){
+        $request->validate(['q'=>'required|string|min:3|max:100']);
 
-        $koordinat=$geocoding->geocode($request->lokasi_awal);
+        return response()->json($geocoding->saranLokasi($request->q));
+    }
+
+    public function lokasiStore(Request $request, GeocodingService $geocoding){
+        $request->validate([
+            'lokasi_awal'=>'required|string|max:255',
+            'place_id'=>'nullable|string|max:255'
+        ]);
+
+        $koordinat=null;
+
+        // user pilih salah satu saran -> geocoding via place_id
+        if($request->filled('place_id'))
+            $koordinat=$geocoding->geocode($request->lokasi_awal,$request->place_id);
+
+        // diketik bebas / lookup place_id gagal -> geocoding via text spt sebelumnya
+        if($koordinat===null)
+            $koordinat=$geocoding->geocode($request->lokasi_awal);
 
         if($koordinat===null) return back()->withErrors(['lokasi_awal'=>'Lokasi tidak ditemukan. Coba masukkan lokasi yang lebih spesifik.'])->withInput();
 

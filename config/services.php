@@ -36,7 +36,8 @@ return [
     ],
 
     'google_maps'=>[
-        'key'=>env('GOOGLE_MAPS_API_KEY')
+        'key'=>env('GOOGLE_MAPS_API_KEY'),
+        'places_key'=>env('GOOGLE_PLACES_API_KEY')
     ]
 
 ];
