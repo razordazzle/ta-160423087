@@ -96,11 +96,6 @@ class AhpService{
         ];
     }
 
-    //bobot default (tabel 4.4), dipake kl user skip preferensi personal
-    public function bobotDefault():array{
-        return [0.1965,0.1991,0.2123,0.2070,0.1851];
-    }
-
     /**
      * cari pasangan yg paling menyimpang dari konsistensi (eps_ij = a_ij*w_j/w_i, makin jauh dari 1 makin menyimpang)
      * lagkah = nomor perbandingan 1-10 sesuai urutan input, baris & kolom = index kriteria 0-4

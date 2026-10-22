@@ -57,25 +57,18 @@ class CariRekomendasiController extends Controller
         return view('cari-rekomendasi.preferensi');
     }
 
-    public function preferensiStore(Request $request,\App\Services\AhpService $ahp, \App\Services\SawService $saw){
+    public function preferensiStore(Request $request,\App\Services\SawService $saw){
         $request->validate(['pilihan'=>'required|in:personal,default']);
 
         if($request->pilihan==='personal') return redirect()->route('cari-rekomendasi.fasilitas');
 
         // pilihan default: lgsg hitung ahp (bobot default) + saw, tanpa input tambahan
         $pencarian=Pencarian::find(session('id_pencarian'));
-        $bobotDefault=$ahp->bobotDefault();
+        
+        $bobotDefault=\App\Models\BobotDefault::orderBy('id_kriteria')->pluck('nilai_bobot','id_kriteria');
+        $pencarian->kriteria()->sync($bobotDefault->map(fn($nilai)=>['nilai_bobot'=>$nilai])->all());
 
-        $kriteriaByNama=\App\Models\Kriteria::pluck('id_kriteria','nama_kriteria');
-        $urutanKriteria=['harga','jarak','rating','fasilitas','popularitas'];
-
-        $dataBobot=[];
-        foreach($urutanKriteria as $index=>$nama){
-            $dataBobot[$kriteriaByNama[$nama]]=['nilai_bobot'=>$bobotDefault[$index]];
-        }
-        $pencarian->kriteria()->sync($dataBobot);
-
-        $hasilSaw=$saw->proses($pencarian,$bobotDefault);
+        $hasilSaw=$saw->proses($pencarian,$bobotDefault->values()->all());
         $saw->simpanHasil($pencarian,$hasilSaw);
 
         return redirect()->route('cari-rekomendasi.hasil');
