@@ -28,6 +28,24 @@ class RekomendasiRuteController extends Controller
         if($hasilRute===null)
             return back()->withErrors(['osrm'=>'Gagal menghitung rute. Silakan coba lagi.']);
 
-        return view('rekomendasi-rute.index',compact('hasilRute','lokasiAwal'));
+        $tautanGoogleMaps=$this->buatTautanGoogleMaps($lokasiAwal,$hasilRute['urutan']);
+
+        return view('rekomendasi-rute.index',compact('hasilRute','lokasiAwal','tautanGoogleMaps'));
+    }
+
+    // tautan gmaps ngikutin urutan hasil osrm: gmaps pake format lat lng (osrm: lon lat)
+    private function buatTautanGoogleMaps(array $lokasiAwal,array $urutan):string{
+        $titik=collect($urutan)->map(fn($item)=>$item['destinasi']->latitude.','.$item['destinasi']->longitude);
+        $tujuan=$titik->pop();
+
+        $parameter=[
+            'api'=>1,
+            'origin'=>$lokasiAwal['latitude'].','.$lokasiAwal['longitude'],
+            'destination'=>$tujuan
+        ];
+        if($titik->isNotEmpty()) $parameter['waypoints']=$titik->implode('|');
+        $parameter['travelmode']='driving';
+
+        return 'https://www.google.com/maps/dir/?'.http_build_query($parameter);
     }
 }
