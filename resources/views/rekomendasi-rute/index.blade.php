@@ -1,4 +1,3 @@
-<!-- resources/views/rekomendasi-rute/index.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,6 +48,14 @@
                 <span class="block font-heading font-bold text-lg text-gray-900">{{ round($hasilRute['total_jarak_km'],1) }} km &bull; {{ round($hasilRute['total_durasi_menit']) }} mnt</span>
             </div>
         </div>
+
+        <a href="{{ $tautanGoogleMaps }}" target="_blank" rel="noopener noreferrer" class="mt-4 w-full flex items-center justify-center gap-2 bg-primary text-white font-bold text-sm uppercase tracking-wide rounded-2xl py-4 shadow-lg shadow-primary/20">
+            Buka di Google Maps
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                <path d="M7 17 17 7"/>
+                <path d="M8 7h9v9"/>
+            </svg>
+        </a>
 
         {{-- Rute Perjalanan --}}
         <h2 class="mt-6 font-heading font-bold text-lg text-gray-900">Rute Perjalanan</h2>
