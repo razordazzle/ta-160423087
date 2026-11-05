@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Client\ConnectionException;
 
 class OsrmService{
     private const BASE_URL='https://router.project-osrm.org';
@@ -16,13 +17,18 @@ class OsrmService{
         }
         $koordinatString=implode(';',$koordinat);
 
-        $response=Http::get(self::BASE_URL."/trip/v1/driving/{$koordinatString}",[
-            'roundtrip'=>'false',
-            'source'=>'first',
-            'destination'=>'any',
-            'overview'=>'full',
-            'geometries'=>'geojson'
-        ]);
+        try{
+            $response=Http::get(self::BASE_URL."/trip/v1/driving/{$koordinatString}",[
+                'roundtrip'=>'false',
+                'source'=>'first',
+                'destination'=>'any',
+                'overview'=>'full',
+                'geometries'=>'geojson'
+            ]);
+        }catch(ConnectionException $e){
+            return null; // osrm tdk terjangkau (no internet, fail dns, timeout)
+        }
+        
 
         $data=$response->json();
 
