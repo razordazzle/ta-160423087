@@ -1,162 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
 </head>
+
 <body>
     @extends('layouts.app')
 
-    @section('title','Destinasi Wisata di Bali')
+    @section('title', 'Destinasi Wisata di Bali')
 
     @section('content')
-    <div class="max-w-md mx-auto px-6 pt-8 pb-10">
-        {{-- Header --}}
-        <div class="flex justify-between items-start gap-4">
-            <div>
-                <h1 class="text-[26px] leading-tight font-heading font-bold text-gray-900">Destinasi Wisata di Bali</h1>
-                <p class="text-gray-600 text-[15px] mt-2">Temukan pesona alam dan budaya yang tak terlupakan.</p>
-            </div>
-            <div class="relative shrink-0">
-                <button type="button" onclick="toggleAkunMenu()" id="btn-akun" aria-haspopup="true"
-                    class="relative w-11 h-11 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center text-gray-500 hover:text-primary hover:border-primary transition-colors">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
-                        <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/>
-                        <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/>
-                    </svg>
-                </button>
+        <div class="max-w-md mx-auto px-6 pt-8 pb-10">
+            {{-- Header --}}
+            <div class="flex justify-between items-start gap-4">
+                <div>
+                    <h1 class="text-[26px] leading-tight font-heading font-bold text-gray-900">Destinasi Wisata di Bali</h1>
+                    <p class="text-gray-600 text-[15px] mt-2">Temukan pesona alam dan budaya yang tak terlupakan.</p>
+                </div>
+                <div class="relative shrink-0">
+                    <button type="button" onclick="toggleAkunMenu()" id="btn-akun" aria-haspopup="true"
+                        class="relative w-11 h-11 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center text-gray-500 hover:text-primary hover:border-primary transition-colors">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="w-5 h-5">
+                            <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" />
+                            <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7" />
+                        </svg>
+                    </button>
 
-                <div id="menu-akun" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-2xl border border-gray-100 shadow-lg overflow-hidden z-10">
-                    <a href="{{ route('akun.index') }}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">Akun Saya</a>
-                        <a href="{{ route('wishlist.index') }}" class="flex items-center justify-between px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 border-t border-gray-100">
+                    <div id="menu-akun"
+                        class="hidden absolute right-0 mt-2 w-48 bg-white rounded-2xl border border-gray-100 shadow-lg overflow-hidden z-10">
+                        <a href="{{ route('akun.index') }}"
+                            class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">Akun Saya</a>
+                        <a href="{{ route('wishlist.index') }}"
+                            class="flex items-center justify-between px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 border-t border-gray-100">
                             Wishlist Saya
                             @if ($jumlahWishlist > 0)
-                                <span class="min-w-[18px] h-[18px] px-1 rounded-full bg-secondary text-white text-[10px] font-bold flex items-center justify-center">{{ $jumlahWishlist }}</span>
+                                <span
+                                    class="min-w-[18px] h-[18px] px-1 rounded-full bg-secondary text-white text-[10px] font-bold flex items-center justify-center">{{ $jumlahWishlist }}</span>
                             @endif
                         </a>
 
-                    @if ($sudahLogin)
-                        <form method="POST" action="{{ route('logout') }}" class="border-t border-gray-100">
-                            @csrf
-                            <button type="submit" class="w-full text-left px-4 py-3 text-sm text-red-600 hover:bg-red-50">Logout</button>
-                        </form>
-                    @else
-                        <a href="{{ route('login.form') }}" class="block px-4 py-3 text-sm text-primary font-medium hover:bg-primary/5 border-t border-gray-100">Login</a>
-                    @endif
+                        @if ($sudahLogin)
+                            <form method="POST" action="{{ route('logout') }}" class="border-t border-gray-100">
+                                @csrf
+                                <button type="submit"
+                                    class="w-full text-left px-4 py-3 text-sm text-red-600 hover:bg-red-50">Logout</button>
+                            </form>
+                        @else
+                            <a href="{{ route('login.form') }}"
+                                class="block px-4 py-3 text-sm text-primary font-medium hover:bg-primary/5 border-t border-gray-100">Login</a>
+                        @endif
+                    </div>
                 </div>
             </div>
-        </div>
 
-        @if(session('pesan'))
-            <div class="mt-4 flex items-center gap-2 bg-primary/10 text-primary text-sm font-medium rounded-lg px-4 py-3">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0">
-                    <path d="M20 6 9 17l-5-5"/>
+            @if(session('pesan'))
+                <div class="mt-4 flex items-center gap-2 bg-primary/10 text-primary text-sm font-medium rounded-lg px-4 py-3">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="w-4 h-4 shrink-0">
+                        <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                    {{ session('pesan') }}
+                </div>
+            @endif
+            {{-- Search bar --}}
+            <a href="{{ route('destinasi.index') }}"
+                class="mt-6 flex items-center gap-3 bg-slate-100 rounded-xl px-4 py-3.5 text-gray-400">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" class="w-5 h-5 shrink-0">
+                    <circle cx="11" cy="11" r="7" />
+                    <path d="m21 21-4.3-4.3" />
                 </svg>
-                {{ session('pesan') }}
-            </div>
-        @endif
-        {{-- Search bar --}}
-        <a href="{{ route('destinasi.index') }}" class="mt-6 flex items-center gap-3 bg-slate-100 rounded-xl px-4 py-3.5 text-gray-400">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 shrink-0">
-                <circle cx="11" cy="11" r="7"/>
-                <path d="m21 21-4.3-4.3"/>
-            </svg>
-            <span class="text-[15px]">Cari destinasi...</span>
-        </a>
+                <span class="text-[15px]">Cari destinasi...</span>
+            </a>
 
-        {{-- Rekomendasi Personal --}}
-        <a href="{{ route('cari-rekomendasi.lokasi') }}" class="block mt-6 rounded-2xl p-6 bg-gradient-to-br from-primary to-secondary shadow-lg shadow-primary/20 active:opacity-90">
-            <div class="flex items-center gap-2">
-                <span class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
-                        <circle cx="12" cy="12" r="9"/>
-                        <path d="m14.5 9.5-1.5 5-5 1.5 1.5-5z"/>
+            {{-- Rekomendasi Personal --}}
+            <a href="{{ route('cari-rekomendasi.lokasi') }}"
+                class="block mt-6 rounded-2xl p-6 bg-gradient-to-br from-primary to-secondary shadow-lg shadow-primary/20 active:opacity-90">
+                <div class="flex items-center gap-2">
+                    <span class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="w-4 h-4">
+                            <circle cx="12" cy="12" r="9" />
+                            <path d="m14.5 9.5-1.5 5-5 1.5 1.5-5z" />
+                        </svg>
+                    </span>
+                    <span class="text-[11px] font-bold tracking-wider uppercase text-white/90">Rekomendasi Pintar</span>
+                </div>
+
+                <h2 class="mt-3 font-heading font-bold text-xl text-white">Cari Rekomendasi Personal</h2>
+                <p class="text-sm text-white/80 mt-1.5 leading-relaxed">Dapatkan urutan destinasi sesuai preferensi dan
+                    lokasi Anda</p>
+
+                <span class="mt-4 inline-flex items-center gap-1.5 text-white font-semibold text-sm">
+                    Mulai Sekarang
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="w-4 h-4">
+                        <path d="M5 12h14M13 5l7 7-7 7" />
                     </svg>
                 </span>
-                <span class="text-[11px] font-bold tracking-wider uppercase text-white/90">Rekomendasi Pintar</span>
-            </div>
+            </a>
 
-            <h2 class="mt-3 font-heading font-bold text-xl text-white">Cari Rekomendasi Personal</h2>
-            <p class="text-sm text-white/80 mt-1.5 leading-relaxed">Dapatkan urutan destinasi sesuai preferensi dan lokasi Anda</p>
+            {{-- Destinasi Populer --}}
+            <h2 class="mt-8 font-heading font-bold text-lg text-gray-900">Destinasi Populer</h2>
 
-            <span class="mt-4 inline-flex items-center gap-1.5 text-white font-semibold text-sm">
-                Mulai Sekarang
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
-                    <path d="M5 12h14M13 5l7 7-7 7"/>
-                </svg>
-            </span>
-        </a>
-
-        {{-- Destinasi Populer --}}
-        <h2 class="mt-8 font-heading font-bold text-lg text-gray-900">Destinasi Populer</h2>
-
-        <div class="mt-4 space-y-4">
-            @foreach ($destinasiPopuler as $destinasi)
-                <a href="{{ route('destinasi.show', $destinasi) }}" class="block bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 active:opacity-90">
-                    <div class="relative h-48 w-full {{ !$destinasi->gambar ? 'bg-gradient-to-br from-slate-400 to-slate-600 flex items-center justify-center' : '' }}">
-                        @if ($destinasi->gambar)
-                            <img src="{{ asset('storage/destinasi/' . $destinasi->gambar) }}" alt="{{ $destinasi->nama }}" class="absolute inset-0 h-full w-full object-cover">
-                        @else
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10 text-white/40">
-                                <path d="m3 16 5-6 4 4 3-4 6 8H3Z"/>
-                                <circle cx="8" cy="7" r="2"/>
-                            </svg>
-                        @endif
-
-                        <span class="absolute top-3 left-3 flex items-center gap-1 bg-white/95 rounded-full px-2.5 py-1 text-xs font-bold text-gray-900 shadow-sm">
-                            <svg viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5 text-amber-400">
-                                <path d="M10 1.5l2.6 5.6 6.2.6-4.6 4.2 1.3 6.1L10 14.9l-5.5 3.1 1.3-6.1L1.2 7.7l6.2-.6L10 1.5z"/>
-                            </svg>
-                            {{ $destinasi->rating }}
-                        </span>
-
-                        <span class="absolute top-3 right-3 flex items-center gap-1 bg-red-600/90 rounded-full px-2.5 py-1 text-xs font-bold text-white shadow-sm">
-                            <svg viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5">
-                                <path d="M10 1c1 3-3 4-3 7a3 3 0 0 0 6 0c1 1 2 2.5 2 4.5A5 5 0 0 1 5 12.5C5 8 8 5 10 1z"/>
-                            </svg>
-                            {{ $destinasi->popularitas_singkat }}
-                        </span>
-                    </div>
-
-                    <div class="p-4">
-                        <h3 class="font-heading font-bold text-gray-900">{{ $destinasi->nama }}</h3>
-                        <p class="text-sm text-gray-600 mt-1 line-clamp-2">{{ $destinasi->deskripsi }}</p>
-
-                        <div class="mt-3 flex items-end justify-between">
-                            <div>
-                                <span class="block text-[11px] font-medium tracking-wide uppercase text-gray-400">Tiket Masuk</span>
-                                <span class="block font-heading font-bold text-primary mt-0.5">Mulai Rp {{ number_format($destinasi->harga_tiket,0,',','.') }}</span>
-                            </div>
-                            <span class="shrink-0 w-10 h-10 rounded-full bg-secondary text-white flex items-center justify-center">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
-                                    <path d="M5 12h14M13 5l7 7-7 7"/>
+            <div class="mt-4 space-y-4">
+                @foreach ($destinasiPopuler as $destinasi)
+                    <a href="{{ route('destinasi.show', $destinasi) }}"
+                        class="block bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 active:opacity-90">
+                        <div
+                            class="relative h-48 w-full {{ !$destinasi->gambar ? 'bg-gradient-to-br from-slate-400 to-slate-600 flex items-center justify-center' : '' }}">
+                            @if ($destinasi->gambar)
+                                <img src="{{ asset('storage/destinasi/' . $destinasi->gambar) }}" alt="{{ $destinasi->nama }}"
+                                    class="absolute inset-0 h-full w-full object-cover">
+                            @else
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" class="w-10 h-10 text-white/40">
+                                    <path d="m3 16 5-6 4 4 3-4 6 8H3Z" />
+                                    <circle cx="8" cy="7" r="2" />
                                 </svg>
+                            @endif
+
+                            <span
+                                class="absolute top-3 left-3 flex items-center gap-1 bg-white/95 rounded-full px-2.5 py-1 text-xs font-bold text-gray-900 shadow-sm">
+                                <svg viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5 text-amber-400">
+                                    <path
+                                        d="M10 1.5l2.6 5.6 6.2.6-4.6 4.2 1.3 6.1L10 14.9l-5.5 3.1 1.3-6.1L1.2 7.7l6.2-.6L10 1.5z" />
+                                </svg>
+                                {{ $destinasi->rating }}
+                            </span>
+
+                            <span
+                                class="absolute top-3 right-3 flex items-center gap-1 bg-red-600/90 rounded-full px-2.5 py-1 text-xs font-bold text-white shadow-sm">
+                                <svg viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5">
+                                    <path
+                                        d="M10.9 0.5C11.2 3.7 16.8 6.4 16.8 12.3C16.8 16 13.9 19.2 10 19.2C6.1 19.2 3.2 16.3 3.2 12.6C3.2 9.6 4.2 7 5.4 4.9C5.9 7.2 6.9 8.9 8.2 9.9C7.6 6.3 10.2 4 10.9 0.5ZM10.9 9.4C10.5 11.4 8 12.3 8 14.5C8 15.9 9 16.9 10.2 16.9C11.5 16.9 12.5 16 12.5 14.4C12.5 12.7 11.4 11.3 10.9 9.4Z" />
+                                </svg>
+                                {{ $destinasi->popularitas_singkat }}
                             </span>
                         </div>
-                    </div>
-                </a>
-            @endforeach
-        </div>
 
-        <a href="{{ route('destinasi.index') }}" class="mt-6 flex items-center justify-center gap-2 bg-primary/10 text-primary font-semibold text-sm rounded-2xl py-3.5">
-            Lihat Semua Destinasi
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
-                <path d="M5 12h14M13 5l7 7-7 7"/>
-            </svg>
-        </a>
-    </div>
-    <script>
-        function toggleAkunMenu(){
-            document.getElementById('menu-akun').classList.toggle('hidden');
-        }
-        document.addEventListener('click',function(e){
-            var menu=document.getElementById('menu-akun');
-            var btn=document.getElementById('btn-akun');
-            if(!menu.classList.contains('hidden') && !menu.contains(e.target) && !btn.contains(e.target))
-                menu.classList.add('hidden');
-        });
-    </script>
+                        <div class="p-4">
+                            <h3 class="font-heading font-bold text-gray-900">{{ $destinasi->nama }}</h3>
+                            <p class="text-sm text-gray-600 mt-1 line-clamp-2">{{ $destinasi->deskripsi }}</p>
+
+                            <div class="mt-3 flex items-end justify-between">
+                                <div>
+                                    <span class="block text-[11px] font-medium tracking-wide uppercase text-gray-400">Tiket
+                                        Masuk</span>
+                                    <span class="block font-heading font-bold text-primary mt-0.5">Mulai Rp
+                                        {{ number_format($destinasi->harga_tiket, 0, ',', '.') }}</span>
+                                </div>
+                                <span
+                                    class="shrink-0 w-10 h-10 rounded-full bg-secondary text-white flex items-center justify-center">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                                        <path d="M5 12h14M13 5l7 7-7 7" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                @endforeach
+            </div>
+
+            <a href="{{ route('destinasi.index') }}"
+                class="mt-6 flex items-center justify-center gap-2 bg-primary/10 text-primary font-semibold text-sm rounded-2xl py-3.5">
+                Lihat Semua Destinasi
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" class="w-4 h-4">
+                    <path d="M5 12h14M13 5l7 7-7 7" />
+                </svg>
+            </a>
+        </div>
+        <script>
+            function toggleAkunMenu() {
+                document.getElementById('menu-akun').classList.toggle('hidden');
+            }
+            document.addEventListener('click', function (e) {
+                var menu = document.getElementById('menu-akun');
+                var btn = document.getElementById('btn-akun');
+                if (!menu.classList.contains('hidden') && !menu.contains(e.target) && !btn.contains(e.target))
+                    menu.classList.add('hidden');
+            });
+        </script>
     @endsection
 </body>
+
 </html>
