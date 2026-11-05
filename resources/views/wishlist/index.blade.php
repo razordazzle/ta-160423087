@@ -29,6 +29,12 @@
             </div>
         @endif
 
+        @if($errors->any())
+            <div class="mt-4 flex items-center gap-2 bg-red-50 text-red-600 text-sm font-medium rounded-lg px-4 py-3">
+                {{ $errors->first() }}
+            </div>
+        @endif
+
         @if ($wishlist->isEmpty())
             <div class="mt-16 flex flex-col items-center text-center px-6">
                 <span class="w-16 h-16 rounded-full bg-gray-100 text-gray-300 flex items-center justify-center">
