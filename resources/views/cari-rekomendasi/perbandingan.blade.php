@@ -1,10 +1,8 @@
-<!-- resources/views/cari-rekomendasi/perbandingan.blade.php -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preferensi Kriteria</title>
+    @extends('layouts.app')
+
+    @section('title','Preferensi Kriteria')
+
+    @push('head')
     <style>
         input[type=range].ahp-slider {
             -webkit-appearance: none;
@@ -36,11 +34,7 @@
             cursor: pointer;
         }
     </style>
-</head>
-<body>
-    @extends('layouts.app')
-
-    @section('title','Preferensi Kriteria')
+    @endpush
 
     @section('content')
     <div class="max-w-md mx-auto px-6 pt-6 pb-10">
@@ -200,5 +194,3 @@
         })();
     </script>
     @endsection
-</body>
-</html>

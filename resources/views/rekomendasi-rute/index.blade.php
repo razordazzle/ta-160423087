@@ -1,12 +1,3 @@
-<!-- resources/views/rekomendasi-rute/index.blade.php -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rekomendasi Rute</title>
-</head>
-<body>
     @extends('layouts.app')
 
     @section('title','Rekomendasi Rute')
@@ -146,5 +137,3 @@
         });
     </script>
     @endsection
-</body>
-</html>

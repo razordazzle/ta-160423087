@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hasil Rekomendasi</title>
+    @extends('layouts.app')
+    @section('title','Hasil Rekomendasi')
+
+    @push('head')
     <style>
         .peta-label{
             background:#fff;
@@ -17,10 +15,7 @@
         }
         .peta-label::before{display:none;}
     </style>
-</head>
-<body>
-    @extends('layouts.app')
-    @section('title','Hasil Rekomendasi')
+    @endpush
     @section('content')
 
     @php
@@ -173,5 +168,3 @@
         });
     </script>
     @endsection
-</body>
-</html>

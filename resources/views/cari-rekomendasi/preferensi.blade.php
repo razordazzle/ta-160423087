@@ -1,12 +1,3 @@
-<!-- resources/views/cari-rekomendasi/preferensi.blade.php -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pilihan Preferensi</title>
-</head>
-<body>
     @extends('layouts.app')
 
     @section('title','Pilihan Preferensi')
@@ -76,5 +67,3 @@
         </form>
     </div>
     @endsection
-</body>
-</html>

@@ -1,13 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
-
-<body>
     @extends('layouts.app')
 
     @section('title', 'Destinasi Wisata di Bali')
@@ -16,9 +6,10 @@
         <div class="max-w-md mx-auto px-6 pt-8 pb-10">
             {{-- Header --}}
             <div class="flex justify-between items-start gap-4">
-                <div>
-                    <h1 class="text-[26px] leading-tight font-heading font-bold text-gray-900">Destinasi Wisata di Bali</h1>
-                    <p class="text-gray-600 text-[15px] mt-2">Temukan pesona alam dan budaya yang tak terlupakan.</p>
+                {{-- Logo dan nama sistem --}}
+                <div class="flex h-11 items-center gap-2.5">
+                    <img src="{{ asset('brand/logo-mark.png') }}?v={{ @filemtime(public_path('brand/logo-mark.png')) ?: 1 }}" alt="" width="36" height="36" class="h-9 w-9 object-contain">
+                    <span class="font-heading text-xl font-bold text-gray-900">Singgah</span>
                 </div>
                 <div class="relative shrink-0">
                     <button type="button" onclick="toggleAkunMenu()" id="btn-akun" aria-haspopup="true"
@@ -56,6 +47,8 @@
                     </div>
                 </div>
             </div>
+            <h1 class="mt-5 text-[26px] leading-tight font-heading font-bold text-gray-900 text-balance">Destinasi Wisata di Bali</h1>
+            <p class="text-gray-600 text-xs min-[400px]:text-[13px] min-[428px]:text-sm mt-2">Temukan pesona alam dan budaya yang tak terlupakan.</p>
 
             @if(session('pesan'))
                 <div class="mt-4 flex items-center gap-2 bg-primary/10 text-primary text-sm font-medium rounded-lg px-4 py-3">
@@ -188,6 +181,3 @@
             });
         </script>
     @endsection
-</body>
-
-</html>
