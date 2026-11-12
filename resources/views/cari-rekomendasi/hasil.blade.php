@@ -14,6 +14,12 @@
             box-shadow:0 1px 4px rgba(0,0,0,.15);
         }
         .peta-label::before{display:none;}
+        @keyframes denyut-hati{
+            0%{transform:scale(1);}
+            40%{transform:scale(.8);}
+            100%{transform:scale(1);}
+        }
+        .denyut-hati{animation:denyut-hati .25s ease-out;}
     </style>
     @endpush
     @section('content')
@@ -60,7 +66,7 @@
                             <img src="{{ asset('storage/destinasi/' . $destinasi->gambar) }}" alt="{{ $destinasi->nama }}" class="absolute inset-0 h-full w-full object-cover">
                         @endif
 
-                        <form method="POST" action="{{ route('wishlist.toggle',$destinasi) }}" class="absolute top-3 right-3">
+                        <form method="POST" action="{{ route('wishlist.toggle',$destinasi) }}" class="absolute top-3 right-3" data-wishlist>
                             @csrf
                             <button type="submit" class="w-9 h-9 rounded-full bg-white/90 flex items-center justify-center shadow-sm {{ $sudahWishlist ? 'text-red-500' : 'text-gray-600' }}" aria-label="{{ $sudahWishlist ? 'Hapus dari wishlist' : 'Tambah ke wishlist' }}">
                                 <svg viewBox="0 0 20 20" fill="{{ $sudahWishlist ? 'currentColor' : 'none' }}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4.5 h-4.5">
@@ -131,6 +137,47 @@
     </div>
 
     <script>
+        // tombol hati: simpan atau hapus wishlist tanpa memuat ulang halaman
+        document.querySelectorAll('form[data-wishlist]').forEach(function (form) {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var tombol = form.querySelector('button');
+                if (tombol.disabled) return;
+                tombol.classList.remove('denyut-hati');
+                void tombol.offsetWidth;
+                tombol.classList.add('denyut-hati');
+                tombol.disabled = true;
+
+                fetch(form.action, {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+                    body: new FormData(form)
+                })
+                    .then(function (res) {
+                        if (!res.ok) throw new Error('gagal');
+                        return res.json();
+                    })
+                    .then(function (data) {
+                        tombol.classList.toggle('text-red-500', data.tersimpan);
+                        tombol.classList.toggle('text-gray-600', !data.tersimpan);
+                        tombol.setAttribute('aria-label', data.tersimpan ? 'Hapus dari wishlist' : 'Tambah ke wishlist');
+                        tombol.querySelector('svg').setAttribute('fill', data.tersimpan ? 'currentColor' : 'none');
+
+                        var badge = document.getElementById('badge-wishlist');
+                        if (badge) {
+                            badge.textContent = data.jumlah;
+                            badge.hidden = data.jumlah === 0;
+                        }
+                    })
+                    .catch(function () {
+                        form.submit(); // cadangan: kirim biasa (dengan reload) bila permintaan gagal
+                    })
+                    .finally(function () {
+                        tombol.disabled = false;
+                    });
+            });
+        });
+
         document.addEventListener('DOMContentLoaded', function () {
             var lokasiAwal = @json(['lat' => $pencarian->latitude_awal, 'lng' => $pencarian->longitude_awal]);
             var destinasiList = @json($hasil->map(fn($d) => ['nama' => $d->nama, 'lat' => $d->latitude, 'lng' => $d->longitude])->values());
