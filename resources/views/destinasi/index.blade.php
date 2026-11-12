@@ -20,7 +20,7 @@
 
             {{-- Header --}}
             <h1 class="mt-5 text-[26px] leading-tight font-heading font-bold text-gray-900">Destinasi Wisata di Bali</h1>
-            <p class="text-gray-600 text-[15px] mt-2">Temukan pesona alam dan budaya yang tak terlupakan.</p>
+            <p class="text-gray-600 text-[length:clamp(11px,calc((100vw-3rem)/27.5),14px)] mt-2">Temukan pesona alam dan budaya yang tak terlupakan.</p>
 
             {{-- Search --}}
             <form method="GET" action="{{ route('destinasi.index') }}"
@@ -48,7 +48,7 @@
 
             {{-- Destination cards --}}
             <div class="mt-6 space-y-4">
-                @foreach ($destinasiList as $destinasi)
+                @forelse ($destinasiList as $destinasi)
                     <a href="{{ route('destinasi.show', $destinasi) }}"
                         class="block bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 active:opacity-90">
                         <div
@@ -104,7 +104,23 @@
                             </div>
                         </div>
                     </a>
-                @endforeach
+                @empty
+                    <div class="flex flex-col items-center text-center py-16">
+                        <span class="w-16 h-16 rounded-full bg-gray-100 text-gray-300 flex items-center justify-center">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                                <circle cx="11" cy="11" r="7" />
+                                <path d="m21 21-4.3-4.3" />
+                            </svg>
+                        </span>
+                        <p class="mt-4 font-heading font-bold text-gray-900">Destinasi tidak ditemukan</p>
+                        @if (request()->filled('q'))
+                            <p class="mt-1 text-sm text-gray-500 break-words">Tidak ada destinasi dengan nama “{{ request('q') }}”</p>
+                        @else
+                            <p class="mt-1 text-sm text-gray-500">Belum ada destinasi pada kategori ini</p>
+                        @endif
+                        <a href="{{ route('destinasi.index') }}" class="mt-4 text-sm font-semibold text-primary">Lihat semua destinasi</a>
+                    </div>
+                @endforelse
             </div>
         </div>
     @endsection

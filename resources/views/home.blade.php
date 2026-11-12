@@ -47,7 +47,7 @@
                     </div>
                 </div>
             </div>
-            <p class="text-gray-600 text-xs min-[400px]:text-[13px] min-[428px]:text-sm mt-4">Temukan pesona alam dan budaya yang tak terlupakan.</p>
+            <p class="text-gray-600 text-[length:clamp(11px,calc((100vw-3rem)/27.5),14px)] mt-4">Temukan pesona alam dan budaya yang tak terlupakan.</p>
 
             @if(session('pesan'))
                 <div class="mt-4 flex items-center gap-2 bg-primary/10 text-primary text-sm font-medium rounded-lg px-4 py-3">

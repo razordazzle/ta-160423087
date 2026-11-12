@@ -28,14 +28,14 @@
         @endif
 
         @if ($wishlist->isEmpty())
-            <div class="flex-1 flex flex-col items-center justify-center text-center px-6">
+            <div class="flex-1 flex flex-col items-center justify-center text-center">
                 <span class="w-16 h-16 rounded-full bg-gray-100 text-gray-300 flex items-center justify-center">
                     <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" class="w-8 h-8">
                         <path d="M10 17.5s-6.5-4-8.5-8A4.5 4.5 0 0 1 10 5a4.5 4.5 0 0 1 8.5 4.5c-2 4-8.5 8-8.5 8Z"/>
                     </svg>
                 </span>
                 <p class="mt-4 font-heading font-bold text-gray-900">Anda belum memiliki wishlist</p>
-                <p class="mt-1 text-sm text-gray-500">Destinasi yang Anda simpan akan muncul di sini</p>
+                <p class="mt-1 text-[length:clamp(12px,calc((100vw-3rem)/25),14px)] text-gray-500">Destinasi yang Anda simpan akan muncul di sini</p>
             </div>
         @else
             <p class="mt-5 text-primary text-sm font-bold">{{ $wishlist->count() }} destinasi tersimpan</p>
