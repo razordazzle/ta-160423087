@@ -117,7 +117,7 @@ class DestinasiSeeder extends Seeder
                 'deskripsi'=>'Pantai berpasir putih di Ungasan yang diapit tebing kapur tinggi, dengan air laut biru jernih dan jalan menurun yang membelah tebing.',
                 'kategori'=>['Pantai'],
                 'fasilitas'=>['Toilet','Parkir','Warung Makan','Area Foto'],
-                'gambar'=>'pantai-melasti.webp'
+                'gambar'=>'pantai-melasti.jpg'
             ],
             [
                 'nama'=>'Pantai Lovina',
@@ -129,7 +129,7 @@ class DestinasiSeeder extends Seeder
                 'deskripsi'=>'Pantai berpasir hitam di Bali utara yang terkenal dengan wisata melihat lumba-lumba pada pagi hari dan suasananya yang tenang.',
                 'kategori'=>['Pantai'],
                 'fasilitas'=>['Toilet','Parkir','Warung Makan','Area Foto'],
-                'gambar'=>'pantai-lovina.webp'
+                'gambar'=>'pantai-lovina.jpg'
             ],
             [
                 'nama'=>'Pura Tirta Empul',
@@ -141,7 +141,7 @@ class DestinasiSeeder extends Seeder
                 'deskripsi'=>'Pura di Tampaksiring dengan kolam mata air suci yang digunakan umat Hindu untuk ritual melukat atau penyucian diri.',
                 'kategori'=>['Pura'],
                 'fasilitas'=>['Toilet','Parkir','Warung Makan'],
-                'gambar'=>'pura-tirta-empul.webp'
+                'gambar'=>'pura-tirta-empul.jpg'
             ],
             [
                 'nama'=>'Pura Besakih',
@@ -153,7 +153,7 @@ class DestinasiSeeder extends Seeder
                 'deskripsi'=>'Kompleks pura terbesar dan terpenting di Bali yang berada di lereng Gunung Agung, dikenal sebagai Pura Induk umat Hindu Bali.',
                 'kategori'=>['Pura'],
                 'fasilitas'=>['Toilet','Parkir','Warung Makan'],
-                'gambar'=>'pura-besakih.webp'
+                'gambar'=>'pura-besakih.jpg'
             ],
             [
                 'nama'=>'Pura Taman Ayun',
@@ -165,7 +165,7 @@ class DestinasiSeeder extends Seeder
                 'deskripsi'=>'Pura peninggalan Kerajaan Mengwi yang dikelilingi kolam dan taman luas, dengan bangunan meru bertingkat yang khas.',
                 'kategori'=>['Pura'],
                 'fasilitas'=>['Toilet','Parkir','Area Foto'],
-                'gambar'=>'pura-taman-ayun.webp'
+                'gambar'=>'pura-taman-ayun.jpeg'
             ],
             [
                 'nama'=>'Gunung Batur',
@@ -177,7 +177,7 @@ class DestinasiSeeder extends Seeder
                 'deskripsi'=>'Gunung api aktif di Kintamani dengan Danau Batur di kakinya, terkenal sebagai tempat mendaki untuk menikmati pemandangan matahari terbit.',
                 'kategori'=>['Alam'],
                 'fasilitas'=>['Toilet','Parkir','Warung Makan'],
-                'gambar'=>'gunung-batur.webp'
+                'gambar'=>'gunung-batur.jpg'
             ],
             [
                 'nama'=>'Jatiluwih Rice Terrace',
@@ -189,7 +189,7 @@ class DestinasiSeeder extends Seeder
                 'deskripsi'=>'Hamparan sawah terasering di kaki Gunung Batukaru yang menggunakan sistem irigasi subak dan diakui sebagai Warisan Budaya Dunia UNESCO.',
                 'kategori'=>['Alam'],
                 'fasilitas'=>['Toilet','Parkir','Warung Makan','Area Foto'],
-                'gambar'=>'jatiluwih-rice-terrace.webp'
+                'gambar'=>'jatiluwih-rice-terrace.jpg'
             ],
             [
                 'nama'=>'Tegenungan Waterfall',
@@ -201,7 +201,7 @@ class DestinasiSeeder extends Seeder
                 'deskripsi'=>'Air terjun di dekat Ubud dengan kolam alami di bawahnya, mudah dijangkau dan dikelilingi pepohonan hijau.',
                 'kategori'=>['Air Terjun','Alam'],
                 'fasilitas'=>['Toilet','Parkir','Warung Makan','Area Foto'],
-                'gambar'=>'tegenungan-waterfall.webp'
+                'gambar'=>'tegenungan-waterfall.jpg'
             ],
             [
                 'nama'=>'Taman Safari Bali',
@@ -237,7 +237,7 @@ class DestinasiSeeder extends Seeder
                 'deskripsi'=>'Taman burung yang menampilkan ratusan spesies burung dari Indonesia dan berbagai negara di dalam taman tropis yang rindang.',
                 'kategori'=>['Satwa'],
                 'fasilitas'=>['Toilet','Parkir','Warung Makan','Area Foto'],
-                'gambar'=>'bali-bird-park.webp'
+                'gambar'=>'bali-bird-park.jpg'
             ],
             [
                 'nama'=>'Sangeh Monkey Forest',
@@ -249,7 +249,7 @@ class DestinasiSeeder extends Seeder
                 'deskripsi'=>'Hutan pala yang dihuni ratusan kera ekor panjang, dengan Pura Bukit Sari yang berdiri di tengah hutan.',
                 'kategori'=>['Satwa'],
                 'fasilitas'=>['Toilet','Parkir','Area Foto'],
-                'gambar'=>'sangeh-monkey-forest.webp'
+                'gambar'=>'sangeh-monkey-forest.jpg'
             ],
             [
                 'nama'=>'Gitgit Waterfall',
@@ -261,7 +261,7 @@ class DestinasiSeeder extends Seeder
                 'deskripsi'=>'Air terjun setinggi sekitar 35 meter di jalur Singaraja–Bedugul, dikelilingi hutan tropis dan mudah dijangkau dari jalan utama.',
                 'kategori'=>['Air Terjun','Alam'],
                 'fasilitas'=>['Toilet','Parkir','Warung Makan'],
-                'gambar'=>'gitgit-waterfall.webp'
+                'gambar'=>'gitgit-waterfall.jpg'
             ],
             [
                 'nama'=>'Sekumpul Waterfall',
@@ -273,7 +273,7 @@ class DestinasiSeeder extends Seeder
                 'deskripsi'=>'Kumpulan beberapa air terjun tinggi di lembah hijau Bali utara, sering disebut sebagai salah satu air terjun terindah di Bali.',
                 'kategori'=>['Air Terjun','Alam'],
                 'fasilitas'=>['Toilet','Parkir','Warung Makan'],
-                'gambar'=>'sekumpul-waterfall.webp'
+                'gambar'=>'sekumpul-waterfall.jpg'
             ],
             [
                 'nama'=>'Nungnung Waterfall',
@@ -285,7 +285,7 @@ class DestinasiSeeder extends Seeder
                 'deskripsi'=>'Air terjun deras di dataran tinggi Petang yang dicapai melalui ratusan anak tangga, dengan udara sejuk dan suasana hutan.',
                 'kategori'=>['Air Terjun','Alam'],
                 'fasilitas'=>['Toilet','Parkir','Warung Makan'],
-                'gambar'=>'nungnung-waterfall.webp'
+                'gambar'=>'nungnung-waterfall.jpg'
             ],
             [
                 'nama'=>'Kanto Lampo Waterfall',
@@ -297,7 +297,7 @@ class DestinasiSeeder extends Seeder
                 'deskripsi'=>'Air terjun bertingkat di Gianyar yang mengalir di atas dinding batu, populer sebagai tempat berfoto.',
                 'kategori'=>['Air Terjun','Alam'],
                 'fasilitas'=>['Toilet','Parkir','Area Foto'],
-                'gambar'=>'kanto-lampo-waterfall.webp'
+                'gambar'=>'kanto-lempo-waterfall.jpg'
             ],
             [
                 'nama'=>'Pantai Sanur',
@@ -309,7 +309,7 @@ class DestinasiSeeder extends Seeder
                 'deskripsi'=>'Pantai berombak tenang di pesisir timur Denpasar, terkenal dengan pemandangan matahari terbit dan jalur pejalan kaki di sepanjang pantai.',
                 'kategori'=>['Pantai'],
                 'fasilitas'=>['Toilet','Parkir','Warung Makan','Area Foto'],
-                'gambar'=>'pantai-sanur.webp'
+                'gambar'=>'pantai-sanur.jpg'
             ]
         ];
 
