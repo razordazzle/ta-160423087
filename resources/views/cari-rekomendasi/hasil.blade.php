@@ -141,10 +141,13 @@
                 maxZoom: 19
             }).addTo(map);
 
-            function buatPin(warna) {
+            function buatPin(warna, nomor) {
+                var isi = nomor
+                    ? '<text x="14" y="' + (nomor > 9 ? 17.6 : 18) + '" text-anchor="middle" font-size="' + (nomor > 9 ? 9.5 : 11) + '" font-weight="700" font-family="Inter,sans-serif" fill="' + warna + '">' + nomor + '</text>'
+                    : '';
                 return L.divIcon({
                     className: '',
-                    html: '<svg width="28" height="36" viewBox="0 0 28 36" xmlns="http://www.w3.org/2000/svg"><path d="M14 0C6.3 0 0 6.3 0 14c0 10.5 14 22 14 22s14-11.5 14-22C28 6.3 21.7 0 14 0Z" style="fill:' + warna + '"/><circle cx="14" cy="14" r="5.5" fill="white"/></svg>',
+                    html: '<svg width="28" height="36" viewBox="0 0 28 36" xmlns="http://www.w3.org/2000/svg"><path d="M14 0C6.3 0 0 6.3 0 14c0 10.5 14 22 14 22s14-11.5 14-22C28 6.3 21.7 0 14 0Z" style="fill:' + warna + '"/><circle cx="14" cy="14" r="' + (nomor ? 8.5 : 5.5) + '" fill="white"/>' + isi + '</svg>',
                     iconSize: [28, 36],
                     iconAnchor: [14, 36]
                 });
@@ -159,8 +162,10 @@
                 .addTo(map)
                 .bindTooltip('Lokasi Anda', { permanent: true, direction: 'right', offset: [4, -18], className: 'peta-label' });
 
-            destinasiList.forEach(function (d) {
-                L.marker([d.lat, d.lng], { icon: buatPin(warnaPrimary) }).addTo(map).bindTooltip(d.nama, { direction: 'top' });
+            destinasiList.forEach(function (d, i) {
+                L.marker([d.lat, d.lng], { icon: buatPin(warnaPrimary, i + 1), zIndexOffset: 1000 - i })
+                    .addTo(map)
+                    .bindTooltip((i + 1) + '. ' + d.nama, { direction: 'top' });
                 titik.push([d.lat, d.lng]);
             });
 
