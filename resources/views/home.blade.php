@@ -9,7 +9,7 @@
                 {{-- Logo dan nama sistem --}}
                 <div class="flex h-11 items-center gap-2.5">
                     <img src="{{ asset('brand/logo-mark.png') }}?v={{ @filemtime(public_path('brand/logo-mark.png')) ?: 1 }}" alt="" width="36" height="36" class="h-9 w-9 object-contain">
-                    <span class="font-heading text-xl font-bold text-gray-900">Singgah</span>
+                    <span class="font-brand text-2xl font-normal text-gray-900">Singgah</span>
                 </div>
                 <div class="relative shrink-0">
                     <button type="button" onclick="toggleAkunMenu()" id="btn-akun" aria-haspopup="true"
