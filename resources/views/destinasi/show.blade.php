@@ -46,16 +46,14 @@
                     Bali, Indonesia
                 </div>
 
-                @if (session('pesan'))
-                    <div
-                        class="mt-4 flex items-center gap-2 bg-primary/10 text-primary text-sm font-medium rounded-lg px-4 py-3">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" class="w-4 h-4 shrink-0">
-                            <path d="M20 6 9 17l-5-5" />
-                        </svg>
-                        {{ session('pesan') }}
-                    </div>
-                @endif
+                <div id="pesan-wishlist" @if (!session('pesan')) hidden @endif
+                    class="mt-4 flex items-center gap-2 bg-primary/10 text-primary text-sm font-medium rounded-lg px-4 py-3">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="w-4 h-4 shrink-0">
+                        <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                    <span id="pesan-wishlist-teks">{{ session('pesan') }}</span>
+                </div>
 
                 {{-- Info grid --}}
                 <div class="mt-6 grid grid-cols-2 gap-3">
@@ -122,11 +120,11 @@
                 <p class="mt-3 text-gray-600 text-[15px] leading-relaxed">{{ $destinasi->deskripsi }}</p>
 
                 {{-- Wishlist --}}
-                <form method="POST" action="{{ route('wishlist.toggle', $destinasi) }}" class="mt-8">
+                <form method="POST" action="{{ route('wishlist.toggle', $destinasi) }}" class="mt-8" data-wishlist-detail>
                     @csrf
                     <button type="submit"
-                        class="w-full flex items-center justify-center gap-2 font-bold text-[15px] rounded-2xl py-4 {{ $sudahWishlist ? 'bg-red-50 text-red-600' : 'bg-primary text-white' }}">
-                        @if($sudahWishlist)
+                        class="w-full flex items-center justify-center gap-2 font-bold text-[15px] rounded-2xl py-4 transition-colors {{ $sudahWishlist ? 'bg-red-50 text-red-600' : 'bg-primary text-white' }}">
+                        <span data-tampil="tersimpan" @if (!$sudahWishlist) hidden @endif class="flex items-center gap-2">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="w-5 h-5">
                                 <path d="M4 7h16" />
@@ -135,14 +133,61 @@
                                 <path d="M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3" />
                             </svg>
                             Hapus dari Wishlist
-                        @else
+                        </span>
+                        <span data-tampil="belum" @if ($sudahWishlist) hidden @endif class="flex items-center gap-2">
                             <svg viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
                                 <path d="M10 17.5s-6.5-4-8.5-8A4.5 4.5 0 0 1 10 5a4.5 4.5 0 0 1 8.5 4.5c-2 4-8.5 8-8.5 8Z" />
                             </svg>
                             Tambah ke Wishlist
-                        @endif
+                        </span>
                     </button>
                 </form>
             </div>
         </div>
+
+    <script>
+        // tombol wishlist di detail destinasi: simpan atau hapus tanpa memuat ulang halaman
+        (function () {
+            var form = document.querySelector('form[data-wishlist-detail]');
+            if (!form) return;
+            var tombol = form.querySelector('button');
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                if (tombol.disabled) return;
+                tombol.disabled = true;
+
+                fetch(form.action, {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+                    body: new FormData(form)
+                })
+                    .then(function (res) {
+                        if (!res.ok) throw new Error('gagal');
+                        return res.json();
+                    })
+                    .then(function (data) {
+                        ['bg-red-50', 'text-red-600'].forEach(function (k) { tombol.classList.toggle(k, data.tersimpan); });
+                        ['bg-primary', 'text-white'].forEach(function (k) { tombol.classList.toggle(k, !data.tersimpan); });
+                        tombol.querySelector('[data-tampil="tersimpan"]').hidden = !data.tersimpan;
+                        tombol.querySelector('[data-tampil="belum"]').hidden = data.tersimpan;
+
+                        document.getElementById('pesan-wishlist-teks').textContent = data.pesan;
+                        document.getElementById('pesan-wishlist').hidden = false;
+
+                        var badge = document.getElementById('badge-wishlist');
+                        if (badge) {
+                            badge.textContent = data.jumlah;
+                            badge.hidden = data.jumlah === 0;
+                        }
+                    })
+                    .catch(function () {
+                        form.submit(); // cadangan: kirim biasa (dengan reload) bila permintaan gagal
+                    })
+                    .finally(function () {
+                        tombol.disabled = false;
+                    });
+            });
+        })();
+    </script>
     @endsection

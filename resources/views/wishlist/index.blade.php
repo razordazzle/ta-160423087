@@ -27,22 +27,22 @@
             </div>
         @endif
 
-        @if ($wishlist->isEmpty())
-            <div class="flex-1 flex flex-col items-center justify-center text-center">
-                <span class="w-16 h-16 rounded-full bg-gray-100 text-gray-300 flex items-center justify-center">
-                    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" class="w-8 h-8">
-                        <path d="M10 17.5s-6.5-4-8.5-8A4.5 4.5 0 0 1 10 5a4.5 4.5 0 0 1 8.5 4.5c-2 4-8.5 8-8.5 8Z"/>
-                    </svg>
-                </span>
-                <p class="mt-4 font-heading font-bold text-gray-900">Anda belum memiliki wishlist</p>
-                <p class="mt-1 text-[length:clamp(12px,calc((100vw-3rem)/25),14px)] text-gray-500">Destinasi yang Anda simpan akan muncul di sini</p>
-            </div>
-        @else
-            <p class="mt-5 text-primary text-sm font-bold">{{ $wishlist->count() }} destinasi tersimpan</p>
+        <div id="wishlist-kosong" @if ($wishlist->isNotEmpty()) hidden @endif class="flex-1 flex flex-col items-center justify-center text-center">
+            <span class="w-16 h-16 rounded-full bg-gray-100 text-gray-300 flex items-center justify-center">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" class="w-8 h-8">
+                    <path d="M10 17.5s-6.5-4-8.5-8A4.5 4.5 0 0 1 10 5a4.5 4.5 0 0 1 8.5 4.5c-2 4-8.5 8-8.5 8Z"/>
+                </svg>
+            </span>
+            <p class="mt-4 font-heading font-bold text-gray-900">Anda belum memiliki wishlist</p>
+            <p class="mt-1 text-[length:clamp(12px,calc((100vw-3rem)/25),14px)] text-gray-500">Destinasi yang Anda simpan akan muncul di sini</p>
+        </div>
 
-            <div class="mt-4 space-y-3">
+        @if ($wishlist->isNotEmpty())
+            <p data-isi-wishlist class="mt-5 text-primary text-sm font-bold"><span id="jumlah-wishlist">{{ $wishlist->count() }}</span> destinasi tersimpan</p>
+
+            <div data-isi-wishlist class="mt-4 space-y-3">
                 @foreach ($wishlist as $destinasi)
-                    <div class="flex items-center gap-3 bg-white rounded-2xl border border-gray-100 shadow-sm p-3">
+                    <div data-kartu-wishlist class="flex items-center gap-3 bg-white rounded-2xl border border-gray-100 shadow-sm p-3 transition-all duration-300">
                         <div class="shrink-0 w-14 h-14 rounded-xl overflow-hidden {{ !$destinasi->gambar ? 'bg-gradient-to-br from-slate-400 to-slate-600 flex items-center justify-center' : '' }}">
                             @if ($destinasi->gambar)
                                 <img src="{{ asset('storage/destinasi/' . $destinasi->gambar) }}" alt="{{ $destinasi->nama }}" class="w-full h-full object-cover">
@@ -59,7 +59,7 @@
                             <p class="text-xs text-primary font-semibold mt-0.5">Mulai Rp {{ number_format($destinasi->harga_tiket,0,',','.') }}</p>
                         </div>
 
-                        <form method="POST" action="{{ route('wishlist.hapus',$destinasi) }}">
+                        <form method="POST" action="{{ route('wishlist.hapus',$destinasi) }}" data-hapus-wishlist>
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="shrink-0 w-10 h-10 rounded-full bg-red-50 text-red-600 flex items-center justify-center">
@@ -75,6 +75,55 @@
                 @endforeach
             </div>
         @endif
+
+        <script>
+            // hapus destinasi dari wishlist tanpa memuat ulang halaman
+            document.querySelectorAll('form[data-hapus-wishlist]').forEach(function (form) {
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    var tombol = form.querySelector('button');
+                    if (tombol.disabled) return;
+                    tombol.disabled = true;
+
+                    fetch(form.action, {
+                        method: 'POST',
+                        headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+                        body: new FormData(form)
+                    })
+                        .then(function (res) {
+                            if (!res.ok) throw new Error('gagal');
+                            return res.json();
+                        })
+                        .then(function (data) {
+                            var kartu = form.closest('[data-kartu-wishlist]');
+                            kartu.style.maxHeight = kartu.offsetHeight + 'px';
+                            requestAnimationFrame(function () {
+                                kartu.classList.add('opacity-0', 'scale-95');
+                                kartu.style.maxHeight = '0px';
+                                kartu.style.paddingTop = '0px';
+                                kartu.style.paddingBottom = '0px';
+                                kartu.style.marginTop = '0px';
+                                kartu.style.marginBottom = '0px';
+                                kartu.style.borderWidth = '0px';
+                            });
+                            setTimeout(function () {
+                                kartu.remove();
+                                if (data.jumlah === 0) {
+                                    document.querySelectorAll('[data-isi-wishlist]').forEach(function (el) { el.remove(); });
+                                    var rute = document.getElementById('btn-rute');
+                                    if (rute) rute.remove();
+                                    document.getElementById('wishlist-kosong').hidden = false;
+                                } else {
+                                    document.getElementById('jumlah-wishlist').textContent = data.jumlah;
+                                }
+                            }, 300);
+                        })
+                        .catch(function () {
+                            form.submit(); // cadangan: kirim biasa (dengan reload) bila permintaan gagal
+                        });
+                });
+            });
+        </script>
 
         @if ($wishlist->isNotEmpty())
             <a href="{{ route('rekomendasi-rute.index') }}" id="btn-rute" class="mt-6 flex items-center justify-center gap-2 bg-primary text-white font-bold text-sm uppercase tracking-wide rounded-2xl py-4 shadow-lg shadow-primary/20">

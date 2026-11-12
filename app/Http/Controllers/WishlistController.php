@@ -20,9 +20,14 @@ class WishlistController extends Controller
         return view('wishlist.index',compact('wishlist','asal'));
     }
 
-    public function hapus(Destinasi $destinasi){
+    public function hapus(Request $request,Destinasi $destinasi){
         $user=User::find(session('id_user'));
         $user->wishlist()->detach($destinasi->id_destinasi);
+
+        // permintaan dari JavaScript (halaman wishlist): balas JSON tanpa reload
+        if($request->expectsJson()){
+            return response()->json(['jumlah'=>$user->wishlist()->count()]);
+        }
 
         return redirect()->route('wishlist.index');
     }
