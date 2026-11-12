@@ -47,8 +47,7 @@
                     </div>
                 </div>
             </div>
-            <h1 class="mt-5 text-[26px] leading-tight font-heading font-bold text-gray-900 text-balance">Destinasi Wisata di Bali</h1>
-            <p class="text-gray-600 text-xs min-[400px]:text-[13px] min-[428px]:text-sm mt-2">Temukan pesona alam dan budaya yang tak terlupakan.</p>
+            <p class="text-gray-600 text-xs min-[400px]:text-[13px] min-[428px]:text-sm mt-4">Temukan pesona alam dan budaya yang tak terlupakan.</p>
 
             @if(session('pesan'))
                 <div class="mt-4 flex items-center gap-2 bg-primary/10 text-primary text-sm font-medium rounded-lg px-4 py-3">
