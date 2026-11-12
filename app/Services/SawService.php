@@ -67,7 +67,7 @@ class SawService{
                 $x=$baris[$nama];
 
                 if($jenis==='benefit') $r=$max>0?$x/$max:0;
-                else $r=($x==0)?1:$min/$x; // edge case (subbab 4.1.2): nilai 0 pd kriteria cost = normalisasi terbaik (1)
+                else $r=($max>$min)?($max-$x)/($max-$min):1; // max-min (rumus 2.3): termurah/terdekat = 1, termahal/terjauh = 0
 
                 $normalisasi[$idDestinasi][$nama]=$r;
             }
