@@ -7,12 +7,8 @@ use Illuminate\Database\Seeder;
 
 class KategoriSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
-    {
-        foreach(['Pantai','Pura','Alam'] as $nama){
+    public function run(): void {
+        foreach(['Pantai','Pura','Alam','Air Terjun','Satwa'] as $nama){
             Kategori::create(['nama_kategori'=>$nama]);
         }
     }
