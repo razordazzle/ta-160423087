@@ -21,7 +21,7 @@
 
     @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
-<body class="bg-background font-body text-gray-900">
+<body class="bg-background font-body text-gray-900" ontouchstart="">
     @yield('content')
 </body>
 </html>

@@ -77,7 +77,7 @@
         @endif
 
         @if ($wishlist->isNotEmpty())
-            <a href="{{ route('rekomendasi-rute.index') }}" class="mt-6 flex items-center justify-center gap-2 bg-primary text-white font-bold text-sm uppercase tracking-wide rounded-2xl py-4 shadow-lg shadow-primary/20">
+            <a href="{{ route('rekomendasi-rute.index') }}" id="btn-rute" class="mt-6 flex items-center justify-center gap-2 bg-primary text-white font-bold text-sm uppercase tracking-wide rounded-2xl py-4 shadow-lg shadow-primary/20">
                 Lihat Rekomendasi Rute
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
                     <path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2Z"/>
@@ -86,4 +86,24 @@
             </a>
         @endif
     </div>
+    <script>
+        (function () {
+            var tombol = document.getElementById('btn-rute');
+            if (!tombol) return;
+            var isiAwal = tombol.innerHTML;
+
+            tombol.addEventListener('click', function () {
+                tombol.innerHTML = '<svg class="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="3" opacity=".3"/><path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg> Menghitung rute...';
+                tombol.classList.add('pointer-events-none', 'opacity-80');
+            });
+
+            // kembalikan tombol bila pengguna menekan "kembali" dari halaman rute
+            window.addEventListener('pageshow', function (e) {
+                if (e.persisted) {
+                    tombol.innerHTML = isiAwal;
+                    tombol.classList.remove('pointer-events-none', 'opacity-80');
+                }
+            });
+        })();
+    </script>
     @endsection
