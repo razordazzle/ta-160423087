@@ -33,9 +33,9 @@ class RekomendasiRuteController extends Controller
         return view('rekomendasi-rute.index',compact('hasilRute','lokasiAwal','tautanGoogleMaps'));
     }
 
-    // tautan gmaps ngikutin urutan hasil osrm: gmaps pake format lat lng (osrm: lon lat)
+    // link gmaps ngikutin urutan hasil osrm: gmaps pake format lat lng (osrm: lon lat)
     private function buatTautanGoogleMaps(array $lokasiAwal,array $urutan):string{
-        $titik=collect($urutan)->map(fn($item)=>$item['destinasi']->latitude.','.$item['destinasi']->longitude);
+        $titik=collect($urutan)->take(10)->map(fn($item)=>$item['destinasi']->latitude.','.$item['destinasi']->longitude);
         $tujuan=$titik->pop();
 
         $parameter=[

@@ -14,6 +14,11 @@
             box-shadow:0 1px 4px rgba(0,0,0,.15);
         }
         .peta-label::before{display:none;}
+        @keyframes kartu-muncul{
+            from{opacity:0;transform:translateY(8px);}
+            to{opacity:1;transform:none;}
+        }
+        .kartu-muncul{animation:kartu-muncul .3s ease-out;}
         @keyframes denyut-hati{
             0%{transform:scale(1);}
             40%{transform:scale(.8);}
@@ -55,15 +60,15 @@
 
         {{-- Cards --}}
         <div class="mt-4">
-            @foreach ($tampil as $index=>$destinasi)
+            @foreach ($hasil as $index=>$destinasi)
                 @php
                     $jarak=$jarakKm($pencarian->latitude_awal,$pencarian->longitude_awal,$destinasi->latitude,$destinasi->longitude);
                     $sudahWishlist=in_array($destinasi->id_destinasi,$idWishlist);
                 @endphp
-                <div id="dest-{{ $destinasi->id_destinasi }}" class="scroll-mt-4 mt-4 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
+                <div id="dest-{{ $destinasi->id_destinasi }}" data-kartu-hasil @if ($index >= $batas) hidden @endif class="scroll-mt-4 mt-4 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
                     <div class="relative h-40 w-full {{ !$destinasi->gambar ? 'bg-gradient-to-br from-slate-400 to-slate-600' : '' }}">
                         @if ($destinasi->gambar)
-                            <img src="{{ asset('storage/destinasi/' . $destinasi->gambar) }}" alt="{{ $destinasi->nama }}" class="absolute inset-0 h-full w-full object-cover">
+                            <img src="{{ asset('storage/destinasi/' . $destinasi->gambar) }}" alt="{{ $destinasi->nama }}" loading="lazy" class="absolute inset-0 h-full w-full object-cover">
                         @endif
 
                         <form method="POST" action="{{ route('wishlist.toggle',$destinasi) }}" class="absolute top-3 right-3" data-wishlist>
@@ -126,8 +131,8 @@
                 </div>
             @endforeach
             @if($hasil->count()>$batas)
-                <a href="{{ request()->fullUrlWithQuery(['tampil'=>$batas+$langkah]) }}#dest-{{ $hasil[$batas]->id_destinasi }}" class="mt-4 w-full bg-white border border-gray-200 text-gray-700 font-bold text-[15px] rounded-2xl py-4 flex items-center justify-center gap-2">
-                    Tampilkan {{ min($langkah,$hasil->count()-$batas) }} destinasi lagi
+                <a id="btn-tampil-lagi" data-batas="{{ $batas }}" data-langkah="{{ $langkah }}" href="{{ request()->fullUrlWithQuery(['tampil'=>$batas+$langkah]) }}#dest-{{ $hasil[$batas]->id_destinasi }}" class="mt-4 w-full bg-white border border-gray-200 text-gray-700 font-bold text-[15px] rounded-2xl py-4 flex items-center justify-center gap-2">
+                    <span>Tampilkan <span id="jumlah-tampil-lagi">{{ min($langkah,$hasil->count()-$batas) }}</span> destinasi lagi</span>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
                         <path d="M6 9l6 6 6-6"/>
                     </svg>
@@ -137,6 +142,34 @@
     </div>
 
     <script>
+        // tombol tampilkan destinasi lagi: munculkan kartu berikutnya tanpa memuat ulang halaman
+        (function () {
+            var tombol = document.getElementById('btn-tampil-lagi');
+            if (!tombol) return;
+            var langkah = Number(tombol.dataset.langkah);
+            var batas = Number(tombol.dataset.batas);
+
+            tombol.addEventListener('click', function (e) {
+                e.preventDefault();
+                var tersembunyi = document.querySelectorAll('[data-kartu-hasil][hidden]');
+                for (var i = 0; i < langkah && i < tersembunyi.length; i++) {
+                    tersembunyi[i].hidden = false;
+                    tersembunyi[i].classList.add('kartu-muncul');
+                }
+                batas += langkah;
+
+                // simpan jumlah kartu di URL supaya tetap sama saat halaman dimuat ulang atau dibuka lewat tombol kembali
+                var url = new URL(window.location.href);
+                url.searchParams.set('tampil', batas);
+                url.hash = '';
+                history.replaceState(null, '', url);
+
+                var sisa = document.querySelectorAll('[data-kartu-hasil][hidden]').length;
+                if (sisa === 0) tombol.remove();
+                else document.getElementById('jumlah-tampil-lagi').textContent = Math.min(langkah, sisa);
+            });
+        })();
+
         // tombol hati: simpan atau hapus wishlist tanpa memuat ulang halaman
         document.querySelectorAll('form[data-wishlist]').forEach(function (form) {
             form.addEventListener('submit', function (e) {

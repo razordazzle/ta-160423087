@@ -49,6 +49,10 @@
             </svg>
         </a>
 
+        @if (count($hasilRute['urutan']) > 10)
+            <p class="mt-2 text-xs text-gray-500 text-center">Google Maps hanya dapat memuat 10 destinasi pertama dari rute ini.</p>
+        @endif
+
         {{-- Rute Perjalanan --}}
         <h2 class="mt-6 font-heading font-bold text-lg text-gray-900">Rute Perjalanan</h2>
 
